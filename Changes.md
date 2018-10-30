@@ -2,6 +2,7 @@ History
 =============
 Version 3.5.0.2
   1. Fix CONTRIB-7270 - Popovers not working as expected in Grid reset options section of settings - Boost theme.
+  2. Foundation theme support.
 
 Version 3.5.0.1
   1. M3.5 version based on V3.4.0.4
