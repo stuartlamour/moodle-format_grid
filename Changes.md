@@ -5,6 +5,7 @@ Version 3.5.0.2
   2. Foundation theme support.
   3. Fix: Boost theme shadebox adjustment.
   4. Fix: Convert displayed image to original mime type instead of only png patch when section zero in the grid.
+  5. Fix: Cope with non-sequential section numbers.
 
 Version 3.5.0.1
   1. M3.5 version based on V3.4.0.4
