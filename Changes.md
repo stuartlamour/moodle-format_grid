@@ -1,6 +1,7 @@
 History
 =============
 Version 3.5.0.3
+  1. New: French 'New activity image', thanks to Momar -> https://github.com/Momardiakhate.
 
 Version 3.5.0.2
   1. Fix CONTRIB-7270 - Popovers not working as expected in Grid reset options section of settings - Boost theme.
