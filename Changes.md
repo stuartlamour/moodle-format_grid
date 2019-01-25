@@ -1,5 +1,7 @@
 History
 =============
+Version 3.6.0.2
+
 Version 3.6.0.1
   1. Beta version for Moodle 3.6.
 
