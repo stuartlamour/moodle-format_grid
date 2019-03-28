@@ -1,6 +1,7 @@
 History
 =============
 Version 3.6.0.4
+  1. Put back 'numsections'.  Thanks to "King's College London" for funding this enhancement.
 
 Version 3.6.0.3
   1. New: WebP displayed image support.
