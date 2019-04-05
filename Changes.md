@@ -1,5 +1,7 @@
 History
 =============
+Version 3.6.0.4
+
 Version 3.6.0.3
   1. New: WebP displayed image support.
 
