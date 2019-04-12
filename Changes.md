@@ -1,5 +1,7 @@
 History
 =============
+Version 3.6.0.5
+
 Version 3.6.0.4.1
   1. Fix existing courses have an incorrect number of courses when upgrading to 3.6.0.4 - #90.
      Note: If on a version prior to 3.6.0.4 then bypass and install 3.6.0.4.1 or above.
