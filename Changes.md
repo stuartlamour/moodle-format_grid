@@ -1,5 +1,8 @@
 History
 =============
+Version 3.7.0.1
+  1. Beta version for Moodle 3.7 based on 3.6.0.5.
+
 Version 3.6.0.5
   1. Apply MDL-64819 - #91.
   2. Fix "Editing section summary and changing summary text breaks grid image" - #92.

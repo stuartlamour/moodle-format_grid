@@ -40,7 +40,7 @@ class format_grid_courseformatlib_testcase extends advanced_testcase {
     protected function setUp() {
         $this->resetAfterTest(true);
 
-        set_config('theme', 'clean');
+        set_config('theme', 'boost');
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
         $this->courseone = $this->getDataGenerator()->create_course(
             array('format' => 'grid',
