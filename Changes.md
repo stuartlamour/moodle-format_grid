@@ -3,6 +3,7 @@ History
 Version 3.7.0.2
   1. Remove old redundant tests.
   2. Add missing Moodle defined.
+  3. Styles tidy up.
 
 Version 3.7.0.1
   1. Beta version for Moodle 3.7 based on 3.6.0.5.
