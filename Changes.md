@@ -1,5 +1,7 @@
 History
 =============
+Version 3.7.0.3
+
 Version 3.7.0.2
   1. Remove old redundant tests.
   2. Add missing Moodle defined.
