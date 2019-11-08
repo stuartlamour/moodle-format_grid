@@ -1,6 +1,7 @@
 History
 =============
 Version 3.7.1.1
+  1. Fix section one not shown - #105.
 
 Version 3.7.1.0
   1. Reduced size of Tooltip JS - #94.
