@@ -1,7 +1,8 @@
 History
 =============
-Version 3.7.1.1
+Version 3.8.0.1 - 17/11/2019
   1. Fix section one not shown - #105.
+  2. Moodle 3.8 version based on V3.7.1.1.
 
 Version 3.7.1.0
   1. Reduced size of Tooltip JS - #94.
