@@ -1,6 +1,7 @@
 History
 =============
 Version 3.8.0.2 - TDB
+  1. Fix 'Same color setting for "set or change img" as currentselectedimagecontainertextcolor in editing on' - #106.
 
 Version 3.8.0.1 - 17/11/2019
   1. Fix section one not shown - #105.
