@@ -71,7 +71,8 @@ $options = array(
     'return_types' => FILE_INTERNAL);
 
 // Fetch the existing grid image record if it exists.
-$alttext = $DB->get_field('format_grid_icon', 'alttext', array('courseid'=>$course->id, 'sectionid'=>$sectionid), IGNORE_MISSING);
+$alttext = $DB->get_field('format_grid_icon', 'alttext',
+    array('courseid' => $course->id, 'sectionid' => $sectionid), IGNORE_MISSING);
 
 $mform = new grid_image_form(null, array(
     'contextid' => $contextid,
