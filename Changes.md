@@ -5,6 +5,8 @@ Version 3.9.0.1 - TDB
   2. Apply MDL-68231.
   3. Apply MDL-68235.
   4. Apply MDL-69065.
+  5. Apply 'Add index to courseid format_grid_icon could improve performance' - #122,
+     thanks to John (https://github.com/yao9394) for the patch.
 
 Version 3.8.0.2 - TDB
   1. Fix 'Same color setting for "set or change img" as currentselectedimagecontainertextcolor in editing on' - #106.
