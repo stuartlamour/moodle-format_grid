@@ -1,6 +1,8 @@
 History
 =============
-Version 3.9.0.1 - TDB
+Version 3.9.0.2 - TBD
+
+Version 3.9.0.1 - 19/7/2020
   1. Apply MDL-65539.
   2. Apply MDL-68231.
   3. Apply MDL-68235.
