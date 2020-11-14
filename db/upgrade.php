@@ -114,11 +114,6 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, '2013110400', 'format', 'grid');
     }
 
-    // Automatic 'Purge all caches'....
-    if ($oldversion < 2114052000) {
-        purge_all_caches();
-    }
-
     if ($oldversion < 2019111702) {
         $table = new xmldb_table('format_grid_icon');
 
@@ -141,6 +136,9 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
 
         upgrade_plugin_savepoint(true, '2020070700', 'format', 'grid');
     }
+
+    // Automatic 'Purge all caches'....
+    purge_all_caches();
 
     return true;
 }
