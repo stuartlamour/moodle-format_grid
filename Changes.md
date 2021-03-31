@@ -3,6 +3,8 @@ History
 Version 3.10.1.1 - TBR
 ============================
  1. Fix 'Site default not applied to setsection0ownpagenogridonesection'.
+ 2. Add new 'single page summary image' functionality (with settings) to show the section image in the section summary on a
+    single section page.
 
 Version 3.10.1.0 - 29/3/2021
 ============================
