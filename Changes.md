@@ -2,6 +2,7 @@ History
 =============
 Version 3.10.1.1 - TBR
 ============================
+ 1. Fix 'Site default not applied to setsection0ownpagenogridonesection'.
 
 Version 3.10.1.0 - 29/3/2021
 ============================
