@@ -4,6 +4,7 @@ Version 3.10.1.2 - TBR
 ============================
  1. Fix grid image placement for RTL languages.
  2. Fix missing 'set' prefix on 'section0ownpagenogridonesection' causing offset error on course restore.
+ 3. Fix 'PNG files not transparent' - #142.
 
 Version 3.10.1.1 - 12/05/21
 ============================
