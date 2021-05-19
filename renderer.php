@@ -304,9 +304,8 @@ class format_grid_renderer extends format_section_renderer_base {
                 if (isset($sectionimage->image) && ($sectionimage->displayedimageindex < 1)) {
                     // Set up the displayed image:...
                     $sectionimage->newimage = $sectionimage->image;
-                    $icbc = \format_grid\toolbox::hex2rgb($this->settings['imagecontainerbackgroundcolour']);
                     $sectionimage = \format_grid\toolbox::setup_displayed_image($sectionimage, $coursecontext->id,
-                        $course->id, $this->settings, $icbc);
+                        $course->id, $this->settings);
                 }
 
                 $gridimagepath = \format_grid\toolbox::get_image_path();
@@ -938,9 +937,8 @@ class format_grid_renderer extends format_section_renderer_base {
                 if (isset($sectionimage->image) && ($sectionimage->displayedimageindex < 1)) {
                     // Set up the displayed image:...
                     $sectionimage->newimage = $sectionimage->image;
-                    $icbc = \format_grid\toolbox::hex2rgb($this->settings['imagecontainerbackgroundcolour']);
                     $sectionimage = \format_grid\toolbox::setup_displayed_image($sectionimage, $contextid,
-                        $course->id, $this->settings, $icbc);
+                        $course->id, $this->settings);
                 }
 
                 if ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {

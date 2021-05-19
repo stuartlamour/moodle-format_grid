@@ -722,8 +722,7 @@ class toolbox {
                 // Set up the displayed image:...
                 $sectionimage->newimage = $storedfilerecord['filename'];
                 $settings = $courseformat->get_settings();
-                $icbc = self::hex2rgb($settings['imagecontainerbackgroundcolour']);
-                self::setup_displayed_image($sectionimage, $storedfilerecord['contextid'], $courseformat->get_courseid(), $settings, $icbc, $mime);
+                self::setup_displayed_image($sectionimage, $storedfilerecord['contextid'], $courseformat->get_courseid(), $settings, $mime);
             } else {
                 print_error('imagecannotbeused', 'format_grid', $CFG->wwwroot . "/course/view.php?id=" . $courseformat->get_courseid());
             }
@@ -743,11 +742,10 @@ class toolbox {
      * @param int $contextid The context id to which the image relates.
      * @param int $courseid The course id to which the image relates.
      * @param array $settings The course settings to apply.
-     * @param array $icbc The 'imagecontainerbackgroundcolour' as an RGB array.
      * @param string $mime The mime type if already known.
      * @return array The updated $sectionimage data.
      */
-    public static function setup_displayed_image($sectionimage, $contextid, $courseid, $settings, $icbc, $mime = null) {
+    public static function setup_displayed_image($sectionimage, $contextid, $courseid, $settings, $mime = null) {
         global $CFG, $DB;
         require_once($CFG->dirroot . '/repository/lib.php');
         require_once($CFG->libdir . '/gdlib.php');
@@ -786,7 +784,7 @@ class toolbox {
                 'sectionimage_displayedimageindex' => $sectionimage->displayedimageindex,
                 'sectionimage_newimage' => $sectionimage->newimage
             );
-            $data = self::generate_image($tmpfilepath, $displayedimageinfo['width'], $displayedimageinfo['height'], $crop, $icbc, $newmime, $debugdata);
+            $data = self::generate_image($tmpfilepath, $displayedimageinfo['width'], $displayedimageinfo['height'], $crop, $newmime, $debugdata);
             if (!empty($data)) {
                 // Updated image.
                 $sectionimage->displayedimageindex++;
@@ -976,12 +974,11 @@ class toolbox {
 
         $sectionimages = self::get_images($courseid);
         if (is_array($sectionimages)) {
-            $icbc = self::hex2rgb($settings['imagecontainerbackgroundcolour']);
             $t = $DB->start_delegated_transaction();
             foreach ($sectionimages as $sectionimage) {
                 if ($sectionimage->displayedimageindex > 0) {
                     $sectionimage->newimage = $sectionimage->image;
-                    $sectionimage = self::setup_displayed_image($sectionimage, $contextid, $courseid, $settings, $icbc);
+                    $sectionimage = self::setup_displayed_image($sectionimage, $contextid, $courseid, $settings);
                 }
             }
             $t->allow_commit();
@@ -1001,13 +998,12 @@ class toolbox {
      * @param int $requestedwidth the width of the requested image.
      * @param int $requestedheight the height of the requested image.
      * @param bool $crop false = scale, true = crop.
-     * @param array $icbc The 'imagecontainerbackgroundcolour' as an RGB array.
      * @param string $mime The mime type.
      * @param array $debugdata Debug data if the image generation fails.
      *
      * @return string|bool false if a problem occurs or the image data.
      */
-    private static function generate_image($filepath, $requestedwidth, $requestedheight, $crop, $icbc, $mime, $debugdata) {
+    private static function generate_image($filepath, $requestedwidth, $requestedheight, $crop, $mime, $debugdata) {
         if (empty($filepath) or empty($requestedwidth) or empty($requestedheight)) {
             return false;
         }
