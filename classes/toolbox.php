@@ -1015,6 +1015,7 @@ class toolbox {
         $imageinfo = getimagesize($filepath);
 
         if (empty($imageinfo)) {
+            unlink($filepath);
             print_error('noimageinformation', 'format_grid', '', self::debugdata_decode($debugdata), 'generate_image');
             return false;
         }
@@ -1023,10 +1024,12 @@ class toolbox {
         $originalheight = $imageinfo[1];
 
         if (empty($originalheight)) {
+            unlink($filepath);
             print_error('originalheightempty', 'format_grid', '', self::debugdata_decode($debugdata), 'generate_image');
             return false;
         }
         if (empty($originalwidth)) {
+            unlink($filepath);
             print_error('originalwidthempty', 'format_grid', '', self::debugdata_decode($debugdata), 'generate_image');
             return false;
         }
@@ -1040,6 +1043,7 @@ class toolbox {
                     $filters = PNG_NO_FILTER;
                     $quality = 1;
                 } else {
+                    unlink($filepath);
                     print_error('formatnotsupported', 'format_grid', '', 'PNG, '.self::debugdata_decode($debugdata), 'generate_image');
                     return false;
                 }
@@ -1050,6 +1054,7 @@ class toolbox {
                     $filters = null;
                     $quality = 90;
                 } else {
+                    unlink($filepath);
                     print_error('formatnotsupported', 'format_grid', '', 'JPG, '.self::debugdata_decode($debugdata), 'generate_image');
                     return false;
                 }
@@ -1062,6 +1067,7 @@ class toolbox {
                     $filters = null;
                     $quality = 90;
                 } else {
+                    unlink($filepath);
                     print_error('formatnotsupported', 'format_grid', '', 'WEBP, '.self::debugdata_decode($debugdata), 'generate_image');
                     return false;
                 }
@@ -1072,11 +1078,13 @@ class toolbox {
                     $filters = null;
                     $quality = null;
                 } else {
+                    unlink($filepath);
                     print_error('formatnotsupported', 'format_grid', '', 'GIF, '.self::debugdata_decode($debugdata), 'generate_image');
                     return false;
                 }
                 break;
             default:
+                unlink($filepath);
                 print_error('mimetypenotsupported', 'format_grid', '', $mime.', '.self::debugdata_decode($debugdata), 'generate_image');
                 return false;
         }
@@ -1168,6 +1176,7 @@ class toolbox {
         ob_start();
         if (!$imagefnc($finalimage, null, $quality, $filters)) {
             ob_end_clean();
+            unlink($filepath);
             print_error('functionfailed', 'format_grid', '', $imagefnc.', '.self::debugdata_decode($debugdata), 'generate_image');
             return false;
         }
