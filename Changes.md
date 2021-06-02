@@ -1,7 +1,10 @@
 History
 =============
-Version 3.10.1.3 - TBR
+Version 3.10.1.3 - 02/06/21
 ============================
+Due to the changes, this is a 'release candidate' release, therefore it is imperative that you test on a test server
+first and report any issues back to me please.  Please see the 'Reporting issues' section of the 'Readme.md' file.
+
  1. Rewrite of update of displayed images process, such that should fix #143 when upgrades are conducted on
     staged Moodle installations where there is no data folder.  This also speeds up in general the update process
     as the displayed images are only regenerated when the course is accessed - thus a 'reset all' should be
