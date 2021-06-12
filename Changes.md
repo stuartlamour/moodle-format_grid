@@ -2,6 +2,7 @@ History
 =============
 Version 3.10.1.4 - TBD
 ============================
+ 1. Fix 'Exception when using course import function' - #144.
 
 Version 3.10.1.3 - 02/06/21
 ============================
