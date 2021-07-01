@@ -1,6 +1,6 @@
 History
 =============
-Version 3.10.1.4 - TBD
+Version 3.10.1.4 - 01/07/21
 ============================
  1. Fix 'Exception when using course import function' - #144.
  2. Fix 'Course restore fails with cannotgetimagesforcourse error' - #145.
