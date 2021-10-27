@@ -26,12 +26,18 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace format_grid\output;
+
 defined('MOODLE_INTERNAL') || die();
+
+use context_course;
+use html_writer;
+use moodle_url;
 
 require_once($CFG->dirroot . '/course/format/renderer.php');
 require_once($CFG->dirroot . '/course/format/grid/lib.php');
 
-class format_grid_renderer extends format_section_renderer_base {
+class renderer extends \format_section_renderer_base {
 
     protected $section0attop; // Boolean to state if section zero is at the top (true) or in the grid (false).
     protected $courseformat; // Our course format object as defined in lib.php.
@@ -46,7 +52,7 @@ class format_grid_renderer extends format_section_renderer_base {
      * @param moodle_page $page
      * @param string $target one of rendering target constants
      */
-    public function __construct(moodle_page $page, $target) {
+    public function __construct(\moodle_page $page, $target) {
         parent::__construct($page, $target);
         $this->courseformat = course_get_format($page->course);
         $this->settings = $this->courseformat->get_settings();
@@ -885,7 +891,7 @@ class format_grid_renderer extends format_section_renderer_base {
                 if ($this->settings['showsectiontitlesummary'] == 2) {
                     $summary = strip_tags($thissection->summary);
                     $summary = str_replace("&nbsp;", ' ', $summary);
-                    $summarylen = core_text::strlen($summary);
+                    $summarylen = \core_text::strlen($summary);
                     if ($summarylen > 0) {
                         if ($this->settings['sectiontitlesummarymaxlength'] != 0) {
                             if ($summarylen > $this->settings['sectiontitlesummarymaxlength']) {
