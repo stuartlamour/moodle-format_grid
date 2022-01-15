@@ -31,6 +31,7 @@ namespace format_grid\output;
 defined('MOODLE_INTERNAL') || die();
 
 use context_course;
+use core_text;
 use html_writer;
 use moodle_url;
 
@@ -891,7 +892,7 @@ class renderer extends \format_section_renderer_base {
                 if ($this->settings['showsectiontitlesummary'] == 2) {
                     $summary = strip_tags($thissection->summary);
                     $summary = str_replace("&nbsp;", ' ', $summary);
-                    $summarylen = \core_text::strlen($summary);
+                    $summarylen = core_text::strlen($summary);
                     if ($summarylen > 0) {
                         if ($this->settings['sectiontitlesummarymaxlength'] != 0) {
                             if ($summarylen > $this->settings['sectiontitlesummarymaxlength']) {
