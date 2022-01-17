@@ -196,7 +196,7 @@ class renderer extends \format_section_renderer_base {
             $section++;
         }
 
-        $select = new url_select($sectionmenu, '', array('' => get_string('jumpto')));
+        $select = new \url_select($sectionmenu, '', array('' => get_string('jumpto')));
         $select->class = 'jumpmenu';
         $select->formid = 'sectionmenu';
         $o .= $this->output->render($select);
@@ -289,7 +289,7 @@ class renderer extends \format_section_renderer_base {
 
         if ($this->settings['singlepagesummaryimage'] > 1) { // I.e. not 'off'.
             if (!empty($summary)) {
-                $data = new stdClass;
+                $data = new \stdClass;
                 switch($this->settings['singlepagesummaryimage']) {
                     case 2:
                         $data->left = true;
