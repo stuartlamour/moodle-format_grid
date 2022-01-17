@@ -392,7 +392,7 @@ class renderer extends \format_section_renderer_base {
             echo $this->section_header_onsectionpage($thissection, $course, $displaysection);
             if ($course->enablecompletion) {
                 // Show completion help icon.
-                $completioninfo = new completion_info($course);
+                $completioninfo = new \completion_info($course);
                 echo $completioninfo->display_help_icon();
             }
 

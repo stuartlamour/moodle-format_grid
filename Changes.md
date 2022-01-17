@@ -3,6 +3,8 @@ History
 Version 3.11.1.1 - TBR
 =============================
  1. Fix 'core_text' inclusion issue.
+ 2. Fix more inclusion issues.
+ 3. Fix "'format_grid\output\completion_info' not found" - #152.
 
 Version 3.11.1.0 - 14/01/2022
 =============================
