@@ -1,5 +1,9 @@
 History
 =============
+Version 3.11.1.1 - TBR
+=============================
+ 1. Fix maturity information not showing in information site setting.
+
 Version 3.11.1.1 - 17/01/2022
 =============================
  1. Fix 'core_text' inclusion issue - #153.
