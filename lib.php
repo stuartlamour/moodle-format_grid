@@ -564,7 +564,7 @@ class format_grid extends core_courseformat\base {
                 ),
                 'sectionimagealttext' => array(
                     'default' => '',
-                    'type' => PARAM_ALPHANUMEXT
+                    'type' => PARAM_TEXT
                 ),
                 'sectionbreak' => array(
                     'default' => 1, // No.
