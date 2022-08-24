@@ -47,6 +47,8 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
      */
     public function __construct($elementName=null, $elementLabel=null, $attributes=null) {
         parent::__construct($elementName, $elementLabel, $attributes, self::$options);
+error_log('C '.print_r($this->getAttribute('course'), true));
+error_log('S '.print_r($this->getAttribute('sectionid'), true));
     }
 
     /**
@@ -61,7 +63,7 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
         $result = parent::onQuickFormEvent($event, $arg, $caller);
         switch ($event) {
             case 'createElement':
-                $this->init();
+                //$this->init();
                 break;
         }
         return $result;
@@ -73,7 +75,8 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
 
         $coursecontext = context_course::instance($course->id);
         $fmd = file_prepare_standard_filemanager($course, 'sectionimage', self::$options, $coursecontext, 'format_grid', 'sectionimage', $sectionid);
-        $this->setValue($fmd->id);
+        $this->setValue($fmd->sectionimage_filemanager);
+error_log('FMD '.print_r($fmd, true));
     }
 
     /**
@@ -157,5 +160,23 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
         }
 
         return $failure;
+    }
+
+    /**
+     * Returns HTML for filemanager form element.
+     *
+     * @return string
+     */
+    function toHtml() {
+        error_log('sfm toHtml');
+$e = new \Exception;
+error_log($e->getTraceAsString());
+
+$this->init();
+error_log('HT C '.print_r($this->getAttribute('course'), true));
+error_log('HT S '.print_r($this->getAttribute('sectionid'), true));
+error_log('HT V '.print_r($this->getValue(), true));
+
+        return parent::toHtml();
     }
 }
