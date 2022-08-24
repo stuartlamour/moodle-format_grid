@@ -89,19 +89,22 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
                                     } else {
                                         $filename = $file->get_filename();
                                         $filesectionid = $file->get_itemid();
-                                        $gridimage = $newimages[$filesectionid];
-                                        if (($gridimage) && ($gridimage->image == $filename)) { // Ensure the correct file.
-                                            $filerecord = new stdClass();
-                                            $filerecord->contextid = $coursecontext->id;
-                                            $filerecord->component = 'format_grid';
-                                            $filerecord->filearea = 'sectionimage';
-                                            $filerecord->itemid = $filesectionid;
-                                            $filerecord->filename = $filename;
-                                            $newfile = $fs->create_file_from_storedfile($filerecord, $file);
-                                            if ($newfile) {
-                                                $DB->set_field('format_grid_image', 'contenthash', $newfile->get_contenthash(),
-                                                    array('sectionid' => $filesectionid));
-                                                // Don't delete the section file in case used in the summary.
+                                        if (array_key_exists($filesectionid, $newimages)) { // Ensure we know about this section.
+                                            $gridimage = $newimages[$filesectionid];
+
+                                            if (($gridimage) && ($gridimage->image == $filename)) { // Ensure the correct file.
+                                                $filerecord = new stdClass();
+                                                $filerecord->contextid = $coursecontext->id;
+                                                $filerecord->component = 'format_grid';
+                                                $filerecord->filearea = 'sectionimage';
+                                                $filerecord->itemid = $filesectionid;
+                                                $filerecord->filename = $filename;
+                                                $newfile = $fs->create_file_from_storedfile($filerecord, $file);
+                                                if ($newfile) {
+                                                    $DB->set_field('format_grid_image', 'contenthash', $newfile->get_contenthash(),
+                                                        array('sectionid' => $filesectionid));
+                                                    // Don't delete the section file in case used in the summary.
+                                                }
                                             }
                                         }
                                     }
