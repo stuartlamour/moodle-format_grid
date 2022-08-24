@@ -47,36 +47,6 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
      */
     public function __construct($elementName=null, $elementLabel=null, $attributes=null) {
         parent::__construct($elementName, $elementLabel, $attributes, self::$options);
-error_log('C '.print_r($this->getAttribute('course'), true));
-error_log('S '.print_r($this->getAttribute('sectionid'), true));
-    }
-
-    /**
-     * Called by HTML_QuickForm whenever form event is made on this element
-     *
-     * @param string $event Name of event
-     * @param mixed $arg event arguments
-     * @param object $caller calling object
-     * @return bool
-     */
-    public function onQuickFormEvent($event, $arg, &$caller) {
-        $result = parent::onQuickFormEvent($event, $arg, $caller);
-        switch ($event) {
-            case 'createElement':
-                //$this->init();
-                break;
-        }
-        return $result;
-    }
-
-    private function init() {
-        $course = $this->getAttribute('course');
-        $sectionid = $this->getAttribute('sectionid');
-
-        $coursecontext = context_course::instance($course->id);
-        $fmd = file_prepare_standard_filemanager($course, 'sectionimage', self::$options, $coursecontext, 'format_grid', 'sectionimage', $sectionid);
-        $this->setValue($fmd->sectionimage_filemanager);
-error_log('FMD '.print_r($fmd, true));
     }
 
     /**
@@ -163,20 +133,24 @@ error_log('FMD '.print_r($fmd, true));
     }
 
     /**
-     * Returns HTML for filemanager form element.
+     * Returns HTML for sectionfilemanager form element.
      *
      * @return string
      */
-    function toHtml() {
-        error_log('sfm toHtml');
-$e = new \Exception;
-error_log($e->getTraceAsString());
-
-$this->init();
-error_log('HT C '.print_r($this->getAttribute('course'), true));
-error_log('HT S '.print_r($this->getAttribute('sectionid'), true));
-error_log('HT V '.print_r($this->getValue(), true));
-
+    public function toHtml() {
+        $this->init();
         return parent::toHtml();
     }
+
+    /**
+     * Prepare the file area.
+     */
+    private function init() {
+        $course = $this->getAttribute('course');
+        $sectionid = $this->getAttribute('sectionid');
+
+        $coursecontext = context_course::instance($course->id);
+        $fmd = file_prepare_standard_filemanager($course, 'sectionimage', self::$options, $coursecontext, 'format_grid', 'sectionimage', $sectionid);
+        $this->setValue($fmd->sectionimage_filemanager);
+    }    
 }
