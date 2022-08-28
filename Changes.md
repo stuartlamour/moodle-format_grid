@@ -1,5 +1,8 @@
 History
 =============
+Version 4.0.0.2 - TBR
+=============================
+
 Version 4.0.0.1 - 24/08/22
 =============================
  1. Start of complete re-build from scratch - functionality added as funded.  Decision made due to the changes in the core API.
