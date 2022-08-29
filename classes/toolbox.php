@@ -585,7 +585,13 @@ class toolbox {
                     foreach ($files as $file) {
                         if (!$file->is_directory()) {
                             try {
-                                $coursesectionimage = $toolbox->setup_displayed_image($coursesectionimage, $file, $courseid, $coursesectionimage->sectionid, $format);
+                                $coursesectionimage = $toolbox->setup_displayed_image(
+                                    $coursesectionimage,
+                                    $file,
+                                    $courseid,
+                                    $coursesectionimage->sectionid,
+                                    $format
+                                );
                             } catch (\Exception $e) {
                                 $lock->release();
                                 throw $e;
