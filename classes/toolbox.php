@@ -66,7 +66,7 @@ class toolbox {
 
     /**
      * Prevents ability to change a static variable outside of the class.
-     * @return array Array of imagecontainer widths.
+     * @return array Array of image container widths.
      */
     public static function get_image_container_widths() {
         return self::$imagecontainerwidths;
@@ -178,7 +178,8 @@ class toolbox {
                 'filename' => $filename,
                 'sectionid' => $sectionid
             );
-            $data = self::generate_image($tmpfilepath, $displayedimageinfo['width'], $displayedimageinfo['height'], $crop, $newmime, $debugdata);
+            $data = self::generate_image($tmpfilepath, $displayedimageinfo['width'], $displayedimageinfo['height'], $crop, $newmime,
+                $debugdata);
             if (!empty($data)) {
                 // Updated image.
                 $coursecontext = \context_course::instance($courseid);
@@ -312,7 +313,7 @@ class toolbox {
      * @return string|bool false if a problem occurs or the image data.
      */
     private static function generate_image($filepath, $requestedwidth, $requestedheight, $crop, $mime, $debugdata) {
-        if (empty($filepath) or empty($requestedwidth) or empty($requestedheight)) {
+        if (empty($filepath) || empty($requestedwidth) || empty($requestedheight)) {
             return false;
         }
 
@@ -553,7 +554,6 @@ class toolbox {
      * Update images.
      *
      * @param int $courseid The course id.
-     *
      */
     private static function update_the_displayed_images($courseid = null) {
         global $DB;
@@ -605,6 +605,11 @@ class toolbox {
         }
     }
 
+    /**
+     * Delete images.
+     *
+     * @param int $courseid The course id.
+     */
     public static function delete_images($courseid) {
         global $DB;
 
@@ -613,19 +618,67 @@ class toolbox {
         // Images.
         $images = $fs->get_area_files($coursecontext->id, 'format_grid', 'sectionimage');
         foreach ($images as $image) {
-            if (!$image->is_directory()) {
-                $image->delete();
-            }
+            $image->delete();
         }
 
         // Displayed images.
         $displayedimages = $fs->get_area_files($coursecontext->id, 'format_grid', 'sectionimage');
         foreach ($displayedimages as $displayedimage) {
-            if (!$displayedimage->is_directory()) {
-                $displayedimage->delete();
-            }
+            $displayedimage->delete();
         }
 
         $DB->delete_records("format_grid_image", array('courseid' => $courseid));
     }
+
+    /**
+     * Delete image.
+     *
+     * @param int $sectionid The section id.
+     * @param int $courseid The course id.
+     */
+    public static function delete_image($sectionid, $courseid) {
+        global $DB;
+
+        $coursesectionimage = $DB->get_record('format_grid_image', array('courseid' => $courseid, 'sectionid' => $sectionid));
+        if (!empty($coursesectionimage)) {
+            $fs = get_file_storage();
+            
+            $lockfactory = null;
+            $lock = true;
+            if (!defined('BEHAT_SITE_RUNNING')) {
+                $lockfactory = \core\lock\lock_config::get_lock_factory('format_grid');
+                $lock = $lockfactory->get_lock('sectionid'.$coursesectionimage->sectionid, 5);
+            }
+            if ($lock) {
+                $coursecontext = \context_course::instance($courseid);
+                $files = $fs->get_area_files($coursecontext->id, 'format_grid', 'sectionimage', $coursesectionimage->sectionid);
+                foreach ($files as $file) {
+                    try {
+                        $file->delete();
+                    } catch (\Exception $e) {
+                        $lock->release();
+                        throw $e;
+                    }
+                }
+                // Remove existing displayed image.
+                $displayedfiles = $fs->get_area_files($coursecontext->id, 'format_grid', 'displayedsectionimage', $sectionid);
+                foreach ($displayedfiles as $displayedfile) {
+                    try {
+                        $displayedfile->delete();
+                    } catch (\Exception $e) {
+                        $lock->release();
+                        throw $e;
+                    }
+                }
+                if (!defined('BEHAT_SITE_RUNNING')) {
+                    $lock->release();
+                }
+            } else {
+                throw new \moodle_exception('cannotgetimagelock', 'format_grid', '',
+                    get_string('cannotgetmanagesectionimagelock', 'format_grid')
+                );
+            }
+            $DB->delete_records("format_grid_image", array('courseid' => $courseid, 'sectionid' => $sectionid));
+        }
+    }    
 }

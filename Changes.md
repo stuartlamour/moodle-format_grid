@@ -3,6 +3,7 @@ History
 Version 4.0.0.2 - TBR
 =============================
 1. Improved styles.
+2. Remove image when a section is deleted.
 
 Version 4.0.0.1 - 24/08/22
 =============================

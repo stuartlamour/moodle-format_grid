@@ -65,7 +65,8 @@ class format_grid extends core_courseformat\base {
 
     /**
      * Returns the format's settings and gets them if they do not exist.
-     * @param bool $invalidate Invalidate the existing known settings and get a fresh set.  Set when you know the settings have changed.
+     * @param bool $invalidate Invalidate the existing known settings and get a fresh set.  Set when you know the settings have
+     *                         changed.
      * @return array The settings as an array.
      */
     public function get_settings($invalidate = false) {
@@ -649,7 +650,7 @@ class format_grid extends core_courseformat\base {
             return false;
         }
         if (parent::delete_section($section, $forcedeleteifnotempty)) {
-            // \format_grid\toolbox::delete_image($section->id, self::get_contextid($this), $this->get_courseid());
+            \format_grid\toolbox::delete_image($section->id, $this->get_courseid());
             return true;
         }
         return false;
@@ -783,8 +784,6 @@ class format_grid extends core_courseformat\base {
  * @return bool
  */
 function format_grid_pluginfile($course, $birecordorcm, $context, $filearea, $args, $forcedownload, array $options=array()) {
-    // global $DB, $CFG, $USER;
-
     if ($context->contextlevel != CONTEXT_COURSE) {
         send_file_not_found();
     }
@@ -801,7 +800,8 @@ function format_grid_pluginfile($course, $birecordorcm, $context, $filearea, $ar
     $filename = $args[2];
     $sectionid = $args[0];
 
-    if (!$file = $fs->get_file($context->id, 'format_grid', 'displayedsectionimage', $sectionid, '/', $filename) or $file->is_directory()) {
+    $file = $fs->get_file($context->id, 'format_grid', 'displayedsectionimage', $sectionid, '/', $filename);
+    if (!$file || $file->is_directory()) {
         send_file_not_found();
     }
 
