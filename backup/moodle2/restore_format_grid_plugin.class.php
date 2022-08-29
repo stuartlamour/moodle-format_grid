@@ -148,8 +148,8 @@ class restore_format_grid_plugin extends restore_format_plugin {
                     $filerecord->filename = $filename;
                     $newfile = $fs->create_file_from_storedfile($filerecord, $file);
                     if ($newfile) {
-                        $DB->set_field('format_grid_image', 'contenthash', $newfile->get_contenthash(), array('sectionid' => $filesectionid));
-                        // Don't delete the section file in case used in the summary.
+                        $DB->set_field('format_grid_image', 'contenthash', $newfile->get_contenthash(),
+                            array('sectionid' => $filesectionid));
                     }
                 }
             }
@@ -194,7 +194,7 @@ class restore_format_grid_plugin extends restore_format_plugin {
         $paths = array();
 
         // Add own format stuff.
-        $elepath = $this->get_pathfor('/');  // $this->get_recommended_name() gets! -> section/the name.
+        $elepath = $this->get_pathfor('/');  // Note: $this->get_recommended_name() gets! -> section/the name.
         $paths[] = new restore_path_element('gridsection', $elepath);
 
         return $paths; // And we return the interesting paths.
@@ -217,7 +217,7 @@ class restore_format_grid_plugin extends restore_format_plugin {
         $newsectionid = $this->task->get_sectionid();
 
         if (empty($data->contenthash)) {
-            // -M4.0 backup file
+            // Less than M4.0 backup file
             if (!empty($data->imagepath)) {
                 $data->image = $data->imagepath;
                 unset($data->imagepath);
