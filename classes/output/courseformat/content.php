@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Contains the default content output class.
+ * Grid Format.
  *
  * @package   format_grid
  * @copyright 2020 Ferran Recio <ferran@moodle.com>
@@ -34,6 +34,7 @@ use stdClass;
  *
  * @package   format_grid
  * @copyright 2020 Ferran Recio <ferran@moodle.com>
+ * @copyright 2022 G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class content extends content_base {

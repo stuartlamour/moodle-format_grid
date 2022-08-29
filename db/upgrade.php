@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Grid Format - A topics based format that uses a grid of user selectable images to popup a light box of the section.
+ * Grid Format.
  *
  * @package    format_grid
  * @version    See the value of '$plugin->version' in version.php.
@@ -115,9 +115,8 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
 
             // Delete 'format_grid_icon' and 'format_grid_summary' tables....
             $dbman->drop_table($oldtable);
-            // But don't actually delete the summary table in case it comes back!
-            // $oldsummarytable = new xmldb_table('format_grid_summary');
-            // $dbman->drop_table($oldsummarytable);
+            $oldsummarytable = new xmldb_table('format_grid_summary');
+            $dbman->drop_table($oldsummarytable);
         }
 
         // Grid savepoint reached.

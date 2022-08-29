@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Grid Format - A topics based format that uses a grid of user selectable images to link to a single section page.
+ * Grid Format.
  * Contains the default section summary (used for multipage format).
  *
  * @package    format_grid

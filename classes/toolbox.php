@@ -150,8 +150,6 @@ class toolbox {
      */
     public function setup_displayed_image($sectionimage, $sectionfile, $courseid, $sectionid, $format) {
         global $CFG, $DB;
-        // require_once($CFG->dirroot . '/repository/lib.php');
-        // require_once($CFG->libdir . '/gdlib.php');
 
         // Get the settings!
         $settings = $format->get_settings();
@@ -314,7 +312,6 @@ class toolbox {
         }
 
         global $CFG;
-        // require_once($CFG->dirroot . '/repository/lib.php');
         require_once($CFG->libdir . '/gdlib.php');
 
         $imageinfo = getimagesize($filepath);

@@ -15,7 +15,7 @@ Feature: Image upload
     And I am on the "GD" "Course" page logged in as "daisy"
 
   @_file_upload @javascript
-  Scenario: Upload an image to section 2
+  Scenario: Upload an image to section 2 - note: The duckling image is copyright 'Gareth J Barnard 2020' use only for this test without permission.
     When I turn editing mode on
     And I edit the section "2"
     And I upload "course/format/grid/tests/fixtures/Ducking.jpg" file to "Section image" filemanager
