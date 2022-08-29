@@ -254,8 +254,8 @@ class toolbox {
     private static function calculate_height($width, $ratio) {
         $basewidth = $width;
 
+        // Ratios 1 => '3-2', 2 => '3-1', 3 => '3-3', 4 => '2-3', 5 => '1-3', 6 => '4-3', 7 => '3-4'.
         switch ($ratio) {
-            // Ratios 1 => '3-2', 2 => '3-1', 3 => '3-3', 4 => '2-3', 5 => '1-3', 6 => '4-3', 7 => '3-4'.
             case 1: // 3-2.
             case 2: // 3-1.
             case 3: // 3-3.
@@ -275,7 +275,6 @@ class toolbox {
 
         $height = $basewidth;
         switch ($ratio) {
-            // Ratios 1 => '3-2', 2 => '3-1', 3 => '3-3', 4 => '2-3', 5 => '1-3', 6 => '4-3', 7 => '3-4'.
             case 2: // 3-1.
                 $height = $basewidth;
                 break;
@@ -642,7 +641,7 @@ class toolbox {
         $coursesectionimage = $DB->get_record('format_grid_image', array('courseid' => $courseid, 'sectionid' => $sectionid));
         if (!empty($coursesectionimage)) {
             $fs = get_file_storage();
-            
+
             $lockfactory = null;
             $lock = true;
             if (!defined('BEHAT_SITE_RUNNING')) {
@@ -680,5 +679,5 @@ class toolbox {
             }
             $DB->delete_records("format_grid_image", array('courseid' => $courseid, 'sectionid' => $sectionid));
         }
-    }    
+    }
 }

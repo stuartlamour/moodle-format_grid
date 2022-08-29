@@ -766,7 +766,7 @@ class format_grid extends core_courseformat\base {
     }
 }
 
-// Transposed from block_html_pluginfile
+// Transposed from block_html_pluginfile.
 /**
  * Form for editing HTML block instances.
  *

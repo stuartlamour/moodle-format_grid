@@ -128,7 +128,12 @@ class content extends content_base {
                         $filename = $filename.'.webp';
                     }
                     $image = \moodle_url::make_pluginfile_url(
-                        $coursecontext->id, 'format_grid', 'displayedsectionimage', $section->id, '/'.$sectionimages[$section->id]->displayedimagestate.'/', $filename
+                        $coursecontext->id,
+                        'format_grid',
+                        'displayedsectionimage',
+                        $section->id,
+                        '/'.$sectionimages[$section->id]->displayedimagestate.'/',
+                        $filename
                     );
                     $sectionimages[$section->id]->imageuri = $image->out();
                 } else {
@@ -144,7 +149,10 @@ class content extends content_base {
                 $sectionimages[$section->id]->alttext = $sectionformatoptions['sectionimagealttext'];
 
                 // Section link.
-                $sectionimages[$section->id]->sectionurl = new \moodle_url('/course/view.php', array('id' => $course->id, 'section' => $section->num));
+                $sectionimages[$section->id]->sectionurl = new \moodle_url(
+                    '/course/view.php',
+                    array('id' => $course->id, 'section' => $section->num)
+                );
                 $sectionimages[$section->id]->sectionurl = $sectionimages[$section->id]->sectionurl->out(false);
 
                 // Section name.
@@ -155,7 +163,10 @@ class content extends content_base {
                     $sectionimages[$section->id]->sectionbreak = true;
                     if (!empty ($sectionformatoptions['sectionbreakheading'])) {
                         // Note:  As a PARAM_TEXT, then does need to be passed through 'format_string' for multi-lang or not?
-                        $sectionimages[$section->id]->sectionbreakheading = format_text($sectionformatoptions['sectionbreakheading'], FORMAT_HTML);
+                        $sectionimages[$section->id]->sectionbreakheading = format_text(
+                            $sectionformatoptions['sectionbreakheading'],
+                            FORMAT_HTML
+                        );
                     }
                 }
                 // For the template.
@@ -194,7 +205,7 @@ class content extends content_base {
         $sections = [];
         $numsections = $format->get_last_section_number();
         $sectioninfos = $modinfo->get_section_info_all();
-        // Get rid of section 0;
+        // Get rid of section 0.
         if (!empty($sectioninfos)) {
             array_shift($sectioninfos);
         }

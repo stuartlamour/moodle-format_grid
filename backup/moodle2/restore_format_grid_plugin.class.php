@@ -217,7 +217,7 @@ class restore_format_grid_plugin extends restore_format_plugin {
         $newsectionid = $this->task->get_sectionid();
 
         if (empty($data->contenthash)) {
-            // Less than M4.0 backup file
+            // Less than M4.0 backup file.
             if (!empty($data->imagepath)) {
                 $data->image = $data->imagepath;
                 unset($data->imagepath);
