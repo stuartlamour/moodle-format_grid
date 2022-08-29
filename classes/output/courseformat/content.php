@@ -201,7 +201,10 @@ class content extends content_base {
         foreach ($sectioninfos as $thissection) {
             // The course/view.php check the section existence but the output can be called from other parts so we need to check it.
             if (!$thissection) {
-                print_error('unknowncoursesection', 'error', course_get_url($course), format_string($course->fullname));
+                throw new \moodle_exception('unknowncoursesection', 'error', '',
+                    get_string('unknowncoursesection', 'error',
+                        course_get_url($course).' - '.format_string($course->fullname))
+                    );
             }
 
             if ($thissection->section > $numsections) {

@@ -125,7 +125,8 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
                 }
             } else {
                 throw new \moodle_exception('cannotgetimagelock', 'format_grid', '',
-                    get_string('cannotgetmanagesectionimagelock', 'format_grid'));
+                    get_string('cannotgetmanagesectionimagelock', 'format_grid')
+                );
             }
         }
 

@@ -98,7 +98,8 @@ class restore_format_grid_plugin extends restore_format_plugin {
         $data->courseid = $courseid;
 
         if (!($course = $DB->get_record('course', array('id' => $data->courseid)))) {
-            print_error('invalidcourseid', 'error');
+            throw new \moodle_exception('invalidcourseid', 'format_grid', '',
+                get_string('invalidcourseid', 'error'));
         } // From /course/view.php.
         // No need to annotate anything here.
     }
