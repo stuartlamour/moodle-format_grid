@@ -29,7 +29,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 // Plugin version.
-$plugin->version = 2022072201;
+$plugin->version = 2022072202;
 
 // Required Moodle version.
 $plugin->requires  = 2022041900.00; // This is Moodle 4.0 (Build: 20220419).
@@ -44,4 +44,4 @@ $plugin->component = 'format_grid';
 $plugin->maturity = MATURITY_RC;
 
 // User-friendly version number.
-$plugin->release = '4.0.0.2';
+$plugin->release = '4.0.0.3';
