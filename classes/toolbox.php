@@ -97,6 +97,32 @@ class toolbox {
     }
 
     /**
+     * Get the displayed image URI.
+     * @param stdClass $coursesectionimage Section information from its row in the 'format_grid_image' table.
+     * @param int $coursecontextid Course context id.
+     * @param int $sectionid Section id.
+     * @param bool $iswebp global defaultdisplayedimagefiletype setting is 'WEBP'.
+     *
+     * @return string Image URI.
+     */
+    public function get_displayed_image_uri($coursesectionimage, $coursecontextid, $sectionid, $iswebp) {
+        $filename = $coursesectionimage->image;
+
+        if ($iswebp) {
+            $filename .= '.webp';
+        }
+        $image = \moodle_url::make_pluginfile_url(
+            $coursecontextid,
+            'format_grid',
+            'displayedsectionimage',
+            $sectionid,
+            '/'.$coursesectionimage->displayedimagestate.'/',
+            $filename
+        );
+        return $image->out();
+    }
+
+    /**
      * Check the displayed image.
      * @param array $sectionimage Section information from its row in the 'format_grid_image' table.
      * @param stored_file $sectionfile Section file.

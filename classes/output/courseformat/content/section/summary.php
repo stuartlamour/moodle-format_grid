@@ -34,7 +34,6 @@ use core_courseformat\output\local\content\section\summary as summary_base;
 use core_courseformat\base as course_format;
 use section_info;
 
-use context_course;
 use stdClass;
 
 /**
@@ -127,21 +126,9 @@ class summary extends summary_base {
 
                     if ($coursesectionimage->displayedimagestate >= 1) {
                         // Yes.
-                        $filename = $coursesectionimage->image;
                         $iswebp = (get_config('format_grid', 'defaultdisplayedimagefiletype') == 2);
-
-                        if ($iswebp) {
-                            $filename = $filename.'.webp';
-                        }
-                        $image = \moodle_url::make_pluginfile_url(
-                            $coursecontext->id,
-                            'format_grid',
-                            'displayedsectionimage',
-                            $sectionid,
-                            '/'.$coursesectionimage->displayedimagestate.'/',
-                            $filename
-                        );
-                        $data->imageuri = $image->out();
+                        $data->imageuri = $toolbox->get_displayed_image_uri(
+                            $coursesectionimage, $coursecontext->id, $sectionid, $iswebp);
                         $sectionformatoptions = $this->format->get_format_options($this->thesection);
                         $data->alttext = $sectionformatoptions['sectionimagealttext'];
 

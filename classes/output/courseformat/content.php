@@ -122,20 +122,8 @@ class content extends content_base {
             foreach ($sectionsforgrid as $section) {
                 // Do we have an image?
                 if ((array_key_exists($section->id, $sectionimages)) && ($sectionimages[$section->id]->displayedimagestate >= 1)) {
-                    // Yes.
-                    $filename = $sectionimages[$section->id]->image;
-                    if ($iswebp) {
-                        $filename = $filename.'.webp';
-                    }
-                    $image = \moodle_url::make_pluginfile_url(
-                        $coursecontext->id,
-                        'format_grid',
-                        'displayedsectionimage',
-                        $section->id,
-                        '/'.$sectionimages[$section->id]->displayedimagestate.'/',
-                        $filename
-                    );
-                    $sectionimages[$section->id]->imageuri = $image->out();
+                    $sectionimages[$section->id]->imageuri = $toolbox->get_displayed_image_uri(
+                        $sectionimages[$section->id], $coursecontext->id, $section->id, $iswebp);
                 } else {
                     // No.
                     $sectionimages[$section->id] = new stdClass;
