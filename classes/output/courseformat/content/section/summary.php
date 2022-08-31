@@ -33,7 +33,6 @@ namespace format_grid\output\courseformat\content\section;
 use core_courseformat\output\local\content\section\summary as summary_base;
 use core_courseformat\base as course_format;
 use section_info;
-
 use stdClass;
 
 /**
@@ -93,7 +92,7 @@ class summary extends summary_base {
             $o = $summary;
             $coursesettings = $this->format->get_settings();
             if ($coursesettings['singlepagesummaryimage'] > 1) { // I.e. not 'off'.
-                $data = new \stdClass;
+                $data = new stdClass;
                 switch($coursesettings['singlepagesummaryimage']) {
                     case 2:
                         $data->left = true;

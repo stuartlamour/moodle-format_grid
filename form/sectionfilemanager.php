@@ -151,7 +151,8 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
         $sectionid = $this->getAttribute('sectionid');
 
         $coursecontext = context_course::instance($course->id);
-        $fmd = file_prepare_standard_filemanager($course, 'sectionimage', self::$options, $coursecontext, 'format_grid', 'sectionimage', $sectionid);
+        $fmd = file_prepare_standard_filemanager(
+            $course, 'sectionimage', self::$options, $coursecontext, 'format_grid', 'sectionimage', $sectionid);
         $this->setValue($fmd->sectionimage_filemanager);
     }    
 }
