@@ -40,6 +40,7 @@ Feature: Sections can be moved - adapted from core test of the same name.
     And I set the field "Image alt text" to "Duckling"
     And I press "Save changes"
     And I open section "2" edit menu
+    And I click on "Move" "link" in the "Section 2" "section"
     And I click on "Section 3" "link" in the ".modal-body" "css_element"
     And I turn editing mode off
     Then "//img[contains(@src, 'Duckling.jpg')]" "xpath_element" should exist in the "#grid-section-3 .grid-image" "css_element"
