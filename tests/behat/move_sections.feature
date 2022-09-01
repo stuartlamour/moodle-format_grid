@@ -32,3 +32,15 @@ Feature: Sections can be moved - adapted from core test of the same name.
     And I click on "Move" "link" in the "Section 1" "section"
     And I click on "Section 3" "link" in the ".modal-body" "css_element"
     Then I should see "Test forum name" in the "Section 3" "section"
+
+  @_file_upload @javascript
+  Scenario: Move section with an image - note: The duckling image is copyright 'Gareth J Barnard 2020' use only for this test without permission.
+    When I edit the section "2"
+    And I upload "course/format/grid/tests/fixtures/Duckling.jpg" file to "Section image" filemanager
+    And I set the field "Image alt text" to "Duckling"
+    And I press "Save changes"
+    And I open section "2" edit menu
+    And I click on "Section 3" "link" in the ".modal-body" "css_element"
+    And I turn editing mode off
+    Then "//img[contains(@src, 'Duckling.jpg')]" "xpath_element" should exist in the "#grid-section-3 .grid-image" "css_element"
+    And "//img[contains(@alt, 'Duckling')]" "xpath_element" should exist in the "#grid-section-3 .grid-image" "css_element"
