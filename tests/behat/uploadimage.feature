@@ -18,9 +18,9 @@ Feature: Image upload
   Scenario: Upload an image to section 2 - note: The duckling image is copyright 'Gareth J Barnard 2020' use only for this test without permission.
     When I turn editing mode on
     And I edit the section "2"
-    And I upload "course/format/grid/tests/fixtures/Ducking.jpg" file to "Section image" filemanager
+    And I upload "course/format/grid/tests/fixtures/Duckling.jpg" file to "Section image" filemanager
     And I set the field "Image alt text" to "Duckling"
     And I press "Save changes"
     And I turn editing mode off
-    Then "//img[contains(@src, 'Ducking.jpg')]" "xpath_element" should exist in the "#grid-section-2 .grid-image" "css_element"
-    And "//img[contains(@alt, 'Ducking')]" "xpath_element" should exist in the "#grid-section-2 .grid-image" "css_element"
+    Then "//img[contains(@src, 'Duckling.jpg')]" "xpath_element" should exist in the "#grid-section-2 .grid-image" "css_element"
+    And "//img[contains(@alt, 'Duckling')]" "xpath_element" should exist in the "#grid-section-2 .grid-image" "css_element"
