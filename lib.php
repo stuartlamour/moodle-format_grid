@@ -772,8 +772,7 @@ class format_grid extends core_courseformat\base {
  *
  * @copyright 2010 Petr Skoda (http://skodak.org)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @package   block_html
- * @category  files
+ * @package   format_grid
  * @param stdClass $course course object
  * @param stdClass $birecordorcm block instance record
  * @param stdClass $context context object
@@ -807,7 +806,8 @@ function format_grid_pluginfile($course, $birecordorcm, $context, $filearea, $ar
 
     // NOTE:
     // It would be nice to have file revisions here, for now rely on standard file lifetime,
-    // do not lower it because the files are dispalyed very often.
+    // do not lower it because the files are displayed very often.  But... Grid format is using
+    // displayedsectionimage in the URL as a means to overcome this.
     \core\session\manager::write_close();
     send_stored_file($file, null, 0, $forcedownload, $options);
 }
