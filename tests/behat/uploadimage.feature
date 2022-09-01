@@ -19,6 +19,8 @@ Feature: Image upload
     When I turn editing mode on
     And I edit the section "2"
     And I upload "course/format/grid/tests/fixtures/Ducking.jpg" file to "Section image" filemanager
+    And I set the field "Image alt text" to "Duckling"
     And I press "Save changes"
     And I turn editing mode off
     Then "//img[contains(@src, 'Ducking.jpg')]" "xpath_element" should exist in the "#grid-section-2 .grid-image" "css_element"
+    And "//img[contains(@alt, 'Ducking')]" "xpath_element" should exist in the "#grid-section-2 .grid-image" "css_element"
