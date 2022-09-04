@@ -55,54 +55,63 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
             $dbman->create_table($table);
         }
 
-        $oldtable = new xmldb_table('format_grid_icon');
-        if ($dbman->table_exists($oldtable)) {
-            // Upgrade from old images.
-            $oldimages = $DB->get_records('format_grid_icon');
-            if (!empty($oldimages)) {
-                $newimages = array();
-                foreach ($oldimages as $oldimage) {
-                    if (!empty($oldimage->image)) {
-                        $newimagecontainer = new \stdClass();
-                        $newimagecontainer->sectionid = $oldimage->sectionid;
-                        $newimagecontainer->courseid = $oldimage->courseid;
-                        $newimagecontainer->image = $oldimage->image;
-                        $newimagecontainer->displayedimagestate = 0;
-                        // Contenthash later!
-                        $DB->insert_record('format_grid_image', $newimagecontainer, true);
-                        $newimages[$newimagecontainer->sectionid] = $newimagecontainer;
-                    }
-                }
+        $lock = true;
+        if (!defined('BEHAT_SITE_RUNNING')) {
+            $lockfactory = \core\lock\lock_config::get_lock_factory('format_grid');
+            $lock = $lockfactory->get_lock('gridupgradelock2022072200', 5);
+        }
+        if ($lock) {
+            try {
+                $oldtable = new xmldb_table('format_grid_icon');
+                if ($dbman->table_exists($oldtable)) {
+                    // Upgrade from old images.
+                    $oldimages = $DB->get_records('format_grid_icon');
+                    if (!empty($oldimages)) {
+                        $newimages = array();
+                        foreach ($oldimages as $oldimage) {
+                            if (!empty($oldimage->image)) {
+                                $newimagecontainer = new \stdClass();
+                                $newimagecontainer->sectionid = $oldimage->sectionid;
+                                $newimagecontainer->courseid = $oldimage->courseid;
+                                $newimagecontainer->image = $oldimage->image;
+                                $newimagecontainer->displayedimagestate = 0;
+                                // Contenthash later!
+                                $DB->insert_record('format_grid_image', $newimagecontainer, true);
+                                $newimages[$newimagecontainer->sectionid] = $newimagecontainer;
+                            }
+                        }
 
-                $fs = get_file_storage();
-                $currentcourseid = 0;
-                foreach ($newimages as $newimage) {
-                    if ($currentcourseid != $newimage->courseid) {
-                        $currentcourseid = $newimage->courseid;
-                        $coursecontext = context_course::instance($currentcourseid);
-                        $files = $fs->get_area_files($coursecontext->id, 'course', 'section');
-                        foreach ($files as $file) {
-                            if (!$file->is_directory()) {
-                                if ($file->get_filepath() == '/gridimage/') {
-                                    $file->delete();
-                                } else {
-                                    $filename = $file->get_filename();
-                                    $filesectionid = $file->get_itemid();
-                                    if (array_key_exists($filesectionid, $newimages)) { // Ensure we know about this section.
-                                        $gridimage = $newimages[$filesectionid];
+                        $fs = get_file_storage();
+                        $currentcourseid = 0;
+                        foreach ($newimages as $newimage) {
+                            if ($currentcourseid != $newimage->courseid) {
+                                $currentcourseid = $newimage->courseid;
+                                $coursecontext = context_course::instance($currentcourseid);
+                                $files = $fs->get_area_files($coursecontext->id, 'course', 'section');
+                                foreach ($files as $file) {
+                                    if (!$file->is_directory()) {
+                                        if ($file->get_filepath() == '/gridimage/') {
+                                            $file->delete();
+                                        } else {
+                                            $filename = $file->get_filename();
+                                            $filesectionid = $file->get_itemid();
+                                            if (array_key_exists($filesectionid, $newimages)) { // Ensure we know about this section.
+                                                $gridimage = $newimages[$filesectionid];
 
-                                        if (($gridimage) && ($gridimage->image == $filename)) { // Ensure the correct file.
-                                            $filerecord = new stdClass();
-                                            $filerecord->contextid = $coursecontext->id;
-                                            $filerecord->component = 'format_grid';
-                                            $filerecord->filearea = 'sectionimage';
-                                            $filerecord->itemid = $filesectionid;
-                                            $filerecord->filename = $filename;
-                                            $newfile = $fs->create_file_from_storedfile($filerecord, $file);
-                                            if ($newfile) {
-                                                $DB->set_field('format_grid_image', 'contenthash', $newfile->get_contenthash(),
-                                                    array('sectionid' => $filesectionid));
-                                                // Don't delete the section file in case used in the summary.
+                                                if (($gridimage) && ($gridimage->image == $filename)) { // Ensure the correct file.
+                                                    $filerecord = new stdClass();
+                                                    $filerecord->contextid = $coursecontext->id;
+                                                    $filerecord->component = 'format_grid';
+                                                    $filerecord->filearea = 'sectionimage';
+                                                    $filerecord->itemid = $filesectionid;
+                                                    $filerecord->filename = $filename;
+                                                    $newfile = $fs->create_file_from_storedfile($filerecord, $file);
+                                                    if ($newfile) {
+                                                        $DB->set_field('format_grid_image', 'contenthash',
+                                                            $newfile->get_contenthash(), array('sectionid' => $filesectionid));
+                                                        // Don't delete the section file in case used in the summary.
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -111,12 +120,23 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
                         }
                     }
                 }
-            }
 
-            // Delete 'format_grid_icon' and 'format_grid_summary' tables....
-            $dbman->drop_table($oldtable);
-            $oldsummarytable = new xmldb_table('format_grid_summary');
-            $dbman->drop_table($oldsummarytable);
+                // Delete 'format_grid_icon' and 'format_grid_summary' tables....
+                $dbman->drop_table($oldtable);
+                $oldsummarytable = new xmldb_table('format_grid_summary');
+                $dbman->drop_table($oldsummarytable);
+
+                if (!defined('BEHAT_SITE_RUNNING')) {
+                    $lock->release();
+                }
+            } catch (\Exception $e) {
+                if (!defined('BEHAT_SITE_RUNNING')) {
+                    $lock->release();
+                }
+                throw $e;
+            }
+        } else {
+            throw new \moodle_exception('cannotgetupgradelock', 'format_grid', '', 'Cannot get upgrade lock');
         }
 
         // Grid savepoint reached.
