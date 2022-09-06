@@ -35,24 +35,26 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
         // Define table format_grid_image to be created.
         $table = new xmldb_table('format_grid_image');
 
-        // Adding fields to table format_grid_image.
-        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
-        $table->add_field('image', XMLDB_TYPE_TEXT, null, null, null, null, null);
-        $table->add_field('contenthash', XMLDB_TYPE_CHAR, '40', null, XMLDB_NOTNULL, null, null);
-        $table->add_field('displayedimagestate', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
-        $table->add_field('sectionid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
-        $table->add_field('courseid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
-
-        // Adding keys to table format_grid_image.
-        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
-
-        // Adding indexes to table format_grid_image.
-        $table->add_index('section', XMLDB_INDEX_UNIQUE, ['sectionid']);
-        $table->add_index('course', XMLDB_INDEX_NOTUNIQUE, ['courseid']);
-
         // Conditionally launch create table for format_grid_image.
         if (!$dbman->table_exists($table)) {
+            // Adding fields to table format_grid_image.
+            $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+            $table->add_field('image', XMLDB_TYPE_TEXT, null, null, null, null, null);
+            $table->add_field('contenthash', XMLDB_TYPE_CHAR, '40', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('displayedimagestate', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('sectionid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('courseid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+
+            // Adding keys to table format_grid_image.
+            $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+
+            // Adding indexes to table format_grid_image.
+            $table->add_index('section', XMLDB_INDEX_UNIQUE, ['sectionid']);
+            $table->add_index('course', XMLDB_INDEX_NOTUNIQUE, ['courseid']);
+
             $dbman->create_table($table);
+        } else {
+            throw new ddl_exception('ddltablealreadyexists', $table->getName());
         }
 
         $lock = true;
@@ -136,7 +138,7 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
                 throw $e;
             }
         } else {
-            throw new \moodle_exception('cannotgetupgradelock', 'format_grid', '', 'Cannot get upgrade lock');
+            throw new moodle_exception('cannotgetupgradelock', 'format_grid', '', 'Cannot get upgrade lock');
         }
 
         // Grid savepoint reached.
