@@ -79,40 +79,38 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
                                 $newimagecontainer->displayedimagestate = 0;
                                 // Contenthash later!
                                 $DB->insert_record('format_grid_image', $newimagecontainer, true);
-                                $newimages[$newimagecontainer->sectionid] = $newimagecontainer;
+                                if (!array_key_exists($newimagecontainer->courseid, $newimages)) {
+                                    $newimages[$newimagecontainer->courseid] = array();
+                                }
+                                $newimages[$newimagecontainer->courseid][$newimagecontainer->sectionid] = $newimagecontainer;
                             }
                         }
 
                         $fs = get_file_storage();
-                        $currentcourseid = 0;
-                        foreach ($newimages as $newimage) {
-                            if ($currentcourseid != $newimage->courseid) {
-                                $currentcourseid = $newimage->courseid;
-                                $coursecontext = context_course::instance($currentcourseid);
-                                $files = $fs->get_area_files($coursecontext->id, 'course', 'section');
-                                foreach ($files as $file) {
-                                    if (!$file->is_directory()) {
-                                        if ($file->get_filepath() == '/gridimage/') {
-                                            $file->delete();
-                                        } else {
-                                            $filename = $file->get_filename();
-                                            $filesectionid = $file->get_itemid();
-                                            if (array_key_exists($filesectionid, $newimages)) { // Ensure we know about this section.
-                                                $gridimage = $newimages[$filesectionid];
-
-                                                if (($gridimage) && ($gridimage->image == $filename)) { // Ensure the correct file.
-                                                    $filerecord = new stdClass();
-                                                    $filerecord->contextid = $coursecontext->id;
-                                                    $filerecord->component = 'format_grid';
-                                                    $filerecord->filearea = 'sectionimage';
-                                                    $filerecord->itemid = $filesectionid;
-                                                    $filerecord->filename = $filename;
-                                                    $newfile = $fs->create_file_from_storedfile($filerecord, $file);
-                                                    if ($newfile) {
-                                                        $DB->set_field('format_grid_image', 'contenthash',
-                                                            $newfile->get_contenthash(), array('sectionid' => $filesectionid));
-                                                        // Don't delete the section file in case used in the summary.
-                                                    }
+                        foreach ($newimages as $currentcourseid => $newimagecoursearray) {
+                            $coursecontext = context_course::instance($currentcourseid);
+                            $files = $fs->get_area_files($coursecontext->id, 'course', 'section');
+                            foreach ($files as $file) {
+                                if (!$file->is_directory()) {
+                                    if ($file->get_filepath() == '/gridimage/') {
+                                        $file->delete();
+                                    } else {
+                                        $filename = $file->get_filename();
+                                        $filesectionid = $file->get_itemid();
+                                        if (array_key_exists($filesectionid, $newimagecoursearray)) { // Ensure we know about this section.
+                                            $gridimage = $newimagecoursearray[$filesectionid];
+                                            if (($gridimage) && ($gridimage->image == $filename)) { // Ensure the correct file.
+                                                $filerecord = new stdClass();
+                                                $filerecord->contextid = $coursecontext->id;
+                                                $filerecord->component = 'format_grid';
+                                                $filerecord->filearea = 'sectionimage';
+                                                $filerecord->itemid = $filesectionid;
+                                                $filerecord->filename = $filename;
+                                                $newfile = $fs->create_file_from_storedfile($filerecord, $file);
+                                                if ($newfile) {
+                                                    $DB->set_field('format_grid_image', 'contenthash',
+                                                        $newfile->get_contenthash(), array('sectionid' => $filesectionid));
+                                                    // Don't delete the section file in case used in the summary.
                                                 }
                                             }
                                         }
