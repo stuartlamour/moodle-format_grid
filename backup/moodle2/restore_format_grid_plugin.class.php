@@ -114,25 +114,29 @@ class restore_format_grid_plugin extends restore_format_plugin {
         }
 
         // Sort out the files if old backup.  Grid image records already created with the section restore.
-        $fs = get_file_storage();
-        $coursecontext = context_course::instance($courseid);
-        $files = $fs->get_area_files($coursecontext->id, 'course', 'section');
-        foreach ($files as $file) {
-            if (!$file->is_directory()) {
-                $filename = $file->get_filename();
-                $filesectionid = $file->get_itemid();
-                $gridimage = $DB->get_record('format_grid_image', array('sectionid' => $filesectionid), 'image');
-                if (($gridimage) && ($gridimage->image == $filename)) { // Ensure the correct file.
-                    $filerecord = new stdClass();
-                    $filerecord->contextid = $coursecontext->id;
-                    $filerecord->component = 'format_grid';
-                    $filerecord->filearea = 'sectionimage';
-                    $filerecord->itemid = $filesectionid;
-                    $filerecord->filename = $filename;
-                    $newfile = $fs->create_file_from_storedfile($filerecord, $file);
-                    if ($newfile) {
-                        $DB->set_field('format_grid_image', 'contenthash', $newfile->get_contenthash(),
-                            array('sectionid' => $filesectionid));
+        $backupinfo = $task->get_info();
+        $backuprelease = $backupinfo->backup_release; // The major version: 2.9, 3.0, 3.10...
+        if (version_compare($backuprelease, '4.0', '<')) {
+            $fs = get_file_storage();
+            $coursecontext = context_course::instance($courseid);
+            $files = $fs->get_area_files($coursecontext->id, 'course', 'section');
+            foreach ($files as $file) {
+                if (!$file->is_directory()) {
+                    $filename = $file->get_filename();
+                    $filesectionid = $file->get_itemid();
+                    $gridimage = $DB->get_record('format_grid_image', array('sectionid' => $filesectionid), 'image');
+                    if (($gridimage) && ($gridimage->image == $filename)) { // Ensure the correct file.
+                        $filerecord = new stdClass();
+                        $filerecord->contextid = $coursecontext->id;
+                        $filerecord->component = 'format_grid';
+                        $filerecord->filearea = 'sectionimage';
+                        $filerecord->itemid = $filesectionid;
+                        $filerecord->filename = $filename;
+                        $newfile = $fs->create_file_from_storedfile($filerecord, $file);
+                        if ($newfile) {
+                            $DB->set_field('format_grid_image', 'contenthash', $newfile->get_contenthash(),
+                                array('sectionid' => $filesectionid));
+                        }
                     }
                 }
             }
@@ -152,7 +156,6 @@ class restore_format_grid_plugin extends restore_format_plugin {
             return;
         }
 
-        $backupinfo = $task->get_info();
         foreach ($backupinfo->sections as $key => $section) {
             /* For each section from the backup file check if it was restored and if was "orphaned" in the original
                course and mark it as hidden. This will leave all activities in it visible and available just as it was
