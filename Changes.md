@@ -4,6 +4,7 @@ Version 4.0.1.1 - TBR
 ============================
 1. Improve upgrade script so that it attempts a repair if something breaks the first time.
 2. Fix 'Error during exchange of section pictures' - #168.
+3. Fix 'Displayed image not deleted when there are draft area files for a section'.
 
 Version 4.0.1.0 - 12/09/2022
 ============================
