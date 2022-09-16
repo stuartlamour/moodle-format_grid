@@ -79,20 +79,29 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
                     // We have file(s).
                     $format = course_get_format($course);
                     $files = $fs->get_area_files($coursecontext->id, 'format_grid', 'sectionimage', $sectionid);
+                    $sectionimage = $DB->get_record_select(
+                        'format_grid_image',
+                        'courseid = ? AND sectionid = ?',
+                        array($course->id, $sectionid)
+                    );
                     foreach ($files as $file) {
                         if (!$file->is_directory()) {
                             $filename = $file->get_filename();
                             $contenthash = $file->get_contenthash();
-                            $sectionimage = $DB->get_record_select(
-                                'format_grid_image',
-                                'courseid = ? AND sectionid = ? AND '.$DB->sql_compare_text('image') . ' = ?',
-                                array($course->id, $sectionid, $filename)
-                            );
                             if ($sectionimage) {
                                 if (($contenthash !== $sectionimage->contenthash) || ($filename !== $sectionimage->image)) {
                                     // Change of image.
-                                    $conditionsarray = array('courseid' => $course->id, 'sectionid' => $sectionid, 'image' => $filename);
-                                    $DB->set_field('format_grid_image', 'contenthash', $contenthash, $conditionsarray);
+                                    $sectionimage->image = $filename;
+                                    $sectionimage->contenthash = $contenthash;
+                                    $sectionimage->displayedimagestate = 0; // Not generated.
+                                    try {
+                                        $DB->update_record('format_grid_image', $sectionimage);
+                                    } catch (\Exception $e) {
+                                        if (!defined('BEHAT_SITE_RUNNING')) {
+                                            $lock->release();
+                                        }
+                                        throw $e;
+                                    }
                                 } // Else image not changed.
                             } else {
                                 // New image.
@@ -102,7 +111,14 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
                                 $sectionimage->image = $filename;
                                 $sectionimage->contenthash = $contenthash;
                                 $sectionimage->displayedimagestate = 0; // Not generated.
-                                $sectionimage->id = $DB->insert_record('format_grid_image', $sectionimage, true);
+                                try {
+                                    $sectionimage->id = $DB->insert_record('format_grid_image', $sectionimage, true);
+                                } catch (\Exception $e) {
+                                    if (!defined('BEHAT_SITE_RUNNING')) {
+                                        $lock->release();
+                                    }
+                                    throw $e;
+                                }
                             }
                             $toolbox = \format_grid\toolbox::get_instance();
                             $toolbox->setup_displayed_image($sectionimage, $file, $course->id, $sectionid, $format);
@@ -111,7 +127,14 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
                     // Note: Not done the case whereby 'a' file is removed - needed?
                 } else {
                     // No files - possible deletion of existing image.
-                    $DB->delete_records('format_grid_image', array('courseid' => $course->id, 'sectionid' => $sectionid));
+                    try {
+                        $DB->delete_records('format_grid_image', array('courseid' => $course->id, 'sectionid' => $sectionid));
+                    } catch (\Exception $e) {
+                        if (!defined('BEHAT_SITE_RUNNING')) {
+                            $lock->release();
+                        }
+                        throw $e;
+                    }
                     // Remove existing displayed image.
                     $existingfiles = $fs->get_area_files($coursecontext->id, 'format_grid', 'displayedsectionimage', $sectionid);
                     foreach ($existingfiles as $existingfile) {
