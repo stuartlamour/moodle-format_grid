@@ -2,7 +2,7 @@ History
 =============
 Version 400.2.0 - TBR
 ============================
-
+1. Add 'Change the number of sections in the course settings' link when editing.
 
 Version 400.1.1 - 18/09/2022
 ============================
