@@ -3,6 +3,7 @@ History
 Version 400.2.0 - TBR
 ============================
 1. Add 'Change the number of sections in the course settings' link when editing.
+2. Fix 'Cannot import activities between two courses using the Grid format' - #169.
 
 Version 400.1.1 - 18/09/2022
 ============================
