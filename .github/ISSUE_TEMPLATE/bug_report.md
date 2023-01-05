@@ -2,8 +2,8 @@
 name: Bug report
 about: Report an issue
 title: ''
-labels: ''
-assignees: ''
+labels: Bug, Pending replication
+assignees: gjb2048
 
 ---
 
