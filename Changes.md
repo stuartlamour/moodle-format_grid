@@ -1,6 +1,6 @@
 History
 =============
-Version 401.0.2 - TBR
+Version 401.0.2 - 03/02/2023
 ----------------------------
 1. Add Modal back, new implementation from the M3.11 version.  Admin setting 'defaultpopup' and course setting 'popup' added,
    default of 'No' and '-' respectively.
