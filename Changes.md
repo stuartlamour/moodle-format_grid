@@ -3,6 +3,7 @@ History
 Version 401.0.3 - TBR
 ----------------------------
 1. Improve popup CSS.
+2. Better content handler.
 
 Version 401.0.2 - 03/02/2023
 ----------------------------
