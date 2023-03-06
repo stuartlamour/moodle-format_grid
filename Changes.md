@@ -2,6 +2,7 @@ History
 =============
 Version 401.0.4 - TBR
 ----------------------------
+1. Fix 'Out of frame pictures in RTL language courses' - #173.
 
 Version 401.0.3 - 16/02/2023
 ----------------------------
