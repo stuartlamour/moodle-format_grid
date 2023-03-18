@@ -1,13 +1,13 @@
 ---
-name: Question
-about: Question about the format
+name: Support
+about: Support for your installation of the format
 title: ''
-labels: Question
+labels: Support, Funding required
 assignees: gjb2048
 
 ---
 
-Please use this when you have a general question about the format that is not a bug, enhancement / improvement or support.
+Please use this when you want support with your installation of the format that is not a bug, enhancement / improvement or general question.
 
 **Versions (please complete the following information):**
  - Moodle: [e.g. 4.1]
