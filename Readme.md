@@ -4,17 +4,17 @@ A topics based format that uses a grid of user selectable images to select a sec
 
 Required release of Moodle
 ==========================
-This version works with Moodle 4.1 version 2022112800.00 (Build: 20221128) and above within the MOODLE_401_STABLE branch until the
+This version works with Moodle 4.2 version 2023042400.00 (Build: 20230424) and above within the MOODLE_402_STABLE branch until the
 next release.
 
-Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/401/en/Installing_Moodle)'.
+Please ensure that your hardware and software complies with 'Requirements' in '[Installing Moodle](https://docs.moodle.org/402/en/Installing_Moodle)'.
 
 Free software
 =============
 The Grid format is 'free' software under the terms of the GNU GPLv3 License, please see 'COPYING.txt'.
 
 The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_grid
-with 'Your Moodle version:' set at 'Moodle 4.1'.
+with 'Your Moodle version:' set at 'Moodle 4.2'.
 
 The secondary source is https://github.com/gjb2048/moodle-format_grid/tags
 
