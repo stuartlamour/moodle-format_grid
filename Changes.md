@@ -2,6 +2,7 @@ History
 =============
 Version 402.1.0 - TBR
 ----------------------------
+1. Improve single section navigation appearance.
 
 Version 401.1.1 - TBR
 ----------------------------
