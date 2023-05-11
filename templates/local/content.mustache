@@ -210,6 +210,11 @@
             {{> core_courseformat/local/content/addsection}}
         {{/ core_courseformat/local/content/addsection}}
     {{/numsections}}
+    {{#bulkedittools}}
+        {{$ core_courseformat/local/content/bulkedittools}}
+            {{> core_courseformat/local/content/bulkedittools}}
+        {{/ core_courseformat/local/content/bulkedittools}}
+    {{/bulkedittools}}
     {{#coursesettings}}
         <a class="d-block text-right" href="{{{coursesettings}}}">{{#str}}sectionchangecoursesettings, format_grid{{/str}}</a>
     {{/coursesettings}}

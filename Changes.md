@@ -3,6 +3,7 @@ History
 Version 402.1.0 - TBR
 ----------------------------
 1. Improve single section navigation appearance.
+2. Add bulk editing tools.
 
 Version 401.1.1 - TBR
 ----------------------------
