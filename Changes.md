@@ -1,11 +1,11 @@
 History
 =============
-Version 402.1.0 - TBR
+Version 402.1.0 - 11/05/23
 ----------------------------
 1. Improve single section navigation appearance.
 2. Add bulk editing tools.
 
-Version 401.1.1 - TBR
+Version 401.1.1 - 11/05/23
 ----------------------------
 1. Fix 'Better way to calculate completion progress' - #180.
 2. Fix 'Better scrolling experience using popup Modal' - #179.
