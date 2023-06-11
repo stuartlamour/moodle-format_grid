@@ -3,6 +3,7 @@ History
 Version 402.1.1 - TBR
 ----------------------------
 1. Fix 'Previous/Next section arrows are incorrect for RTL languages' - #183.
+2. Fix 'Last section not showing its image when editing'.
 
 Version 402.1.0 - 11/05/2023
 ----------------------------
