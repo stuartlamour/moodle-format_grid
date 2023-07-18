@@ -1,10 +1,10 @@
 History
 =============
-Version 402.1.2 - TBR
+Version 402.1.2 - 18/07/2023
 ----------------------------
 1. Fix 'Undefined property' - #186.
 
-Version 402.1.1 - 15/6/2023
+Version 402.1.1 - 15/06/2023
 ----------------------------
 1. Fix 'Previous/Next section arrows are incorrect for RTL languages' - #183.
 2. Fix 'Last section not showing its image when editing'.
