@@ -3,6 +3,7 @@ History
 Version 402.2.0 - TBR
 ----------------------------
 1. Fix 'No sections showing when creating a course with the default number of sections'.
+2. Fix 'Images are missing in the grid boxes when restoring a course' - #172.
 
 Version 402.1.2 - 18/07/2023
 ----------------------------
