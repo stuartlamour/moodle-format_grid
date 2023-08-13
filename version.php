@@ -44,4 +44,4 @@ $plugin->component = 'format_grid';
 $plugin->maturity = MATURITY_STABLE;
 
 // User-friendly version number.
-$plugin->release = '402.1.3';
+$plugin->release = '402.2.0';

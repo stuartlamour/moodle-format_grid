@@ -1,6 +1,6 @@
 History
 =============
-Version 402.1.3 - TBR
+Version 402.2.0 - TBR
 ----------------------------
 1. Fix 'No sections showing when creating a course with the default number of sections'.
 
