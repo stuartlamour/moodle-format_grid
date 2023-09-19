@@ -3,6 +3,7 @@ History
 
 Version 402.2.1 - TBR
 ----------------------------
+1. Fix 'Webp image causes an error and makes course unaccessible' - #190.
 
 Version 402.2.0 - 16/08/2023
 ----------------------------
