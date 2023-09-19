@@ -1,5 +1,9 @@
 History
 =============
+
+Version 402.2.1 - TBR
+----------------------------
+
 Version 402.2.0 - 16/08/2023
 ----------------------------
 1. Fix 'No sections showing when creating a course with the default number of sections'.
