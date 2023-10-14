@@ -30,7 +30,6 @@
  * Provides the information to backup grid course format
  */
 class backup_format_grid_plugin extends backup_format_plugin {
-
     /**
      * Returns the format information to attach to course element
      */

@@ -36,12 +36,17 @@ $settings = null;
 $ADMIN->add('formatsettings', new admin_category('format_grid', get_string('pluginname', 'format_grid')));
 
 // Information.
-$page = new admin_settingpage('format_grid_information',
-    get_string('information', 'format_grid'));
+$page = new admin_settingpage(
+    'format_grid_information',
+    get_string('information', 'format_grid')
+);
 
 if ($ADMIN->fulltree) {
-    $page->add(new admin_setting_heading('format_grid_information', '',
-        format_text(get_string('informationsettingsdesc', 'format_grid'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'format_grid_information',
+        '',
+        format_text(get_string('informationsettingsdesc', 'format_grid'), FORMAT_MARKDOWN)
+    ));
 
     // Information.
     $page->add(new admin_setting_information('format_grid/formatinformation', '', '', 402));
@@ -50,17 +55,26 @@ if ($ADMIN->fulltree) {
     $page->add(new admin_setting_markdown('format_grid/formatsupport', '', '', 'Support.md'));
 
     // Changes.md.
-    $page->add(new admin_setting_markdown('format_grid/formatchanges',
-        get_string('informationchanges', 'format_grid'), '', 'Changes.md'));
+    $page->add(new admin_setting_markdown(
+        'format_grid/formatchanges',
+        get_string('informationchanges', 'format_grid'),
+        '',
+        'Changes.md'
+    ));
 }
 $ADMIN->add('format_grid', $page);
 
 // Settings.
-$page = new admin_settingpage('format_grid_settings',
-    get_string('settings', 'format_grid'));
+$page = new admin_settingpage(
+    'format_grid_settings',
+    get_string('settings', 'format_grid')
+);
 if ($ADMIN->fulltree) {
-    $page->add(new admin_setting_heading('format_grid_settings', '',
-        format_text(get_string('settingssettingsdesc', 'format_grid'), FORMAT_MARKDOWN)));
+    $page->add(new admin_setting_heading(
+        'format_grid_settings',
+        '',
+        format_text(get_string('settingssettingsdesc', 'format_grid'), FORMAT_MARKDOWN)
+    ));
 
     // Popup.
     $name = 'format_grid/defaultpopup';

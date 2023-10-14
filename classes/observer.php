@@ -31,7 +31,6 @@
  * Event observers supported by this format.
  */
 class format_grid_observer {
-
     /**
      * Observer for the event course_content_deleted.
      *

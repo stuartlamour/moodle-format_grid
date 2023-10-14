@@ -107,9 +107,11 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
                                     } else {
                                         $filename = $file->get_filename();
                                         $filesectionid = $file->get_itemid();
-                                        if (array_key_exists($filesectionid, $newimagecoursearray)) { // Ensure we know about this section.
+                                        // Ensure we know about this section.
+                                        if (array_key_exists($filesectionid, $newimagecoursearray)) {
                                             $gridimage = $newimagecoursearray[$filesectionid];
-                                            if (($gridimage) && ($gridimage->image == $filename)) { // Ensure the correct file.
+                                            // Ensure the correct file.
+                                            if (($gridimage) && ($gridimage->image == $filename)) {
                                                 $filerecord = new stdClass();
                                                 $filerecord->contextid = $coursecontext->id;
                                                 $filerecord->component = 'format_grid';
@@ -126,14 +128,19 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
                                                         $filerecord->filearea,
                                                         $filerecord->itemid,
                                                         $filerecord->filepath,
-                                                        $filerecord->filename);
+                                                        $filerecord->filename
+                                                    );
                                                 }
                                                 if ($thefile === false) {
                                                     $thefile = $fs->create_file_from_storedfile($filerecord, $file);
                                                 }
                                                 if ($thefile !== false) {
-                                                    $DB->set_field('format_grid_image', 'contenthash',
-                                                        $thefile->get_contenthash(), ['sectionid' => $filesectionid]);
+                                                    $DB->set_field(
+                                                        'format_grid_image',
+                                                        'contenthash',
+                                                        $thefile->get_contenthash(),
+                                                        ['sectionid' => $filesectionid]
+                                                    );
                                                     // Don't delete the section file in case used in the summary.
                                                 }
                                             }
@@ -169,19 +176,25 @@ function xmldb_format_grid_upgrade($oldversion = 0) {
 
     if ($oldversion < 2023051001) {
         // Has the upgrade already happened?  Thus in versions for Moodle 4.1.
-        $records = $DB->get_records('course_format_options',
+        $records = $DB->get_records(
+            'course_format_options',
             [
                 'format' => 'grid',
                 'name' => 'gnumsections',
-            ], '', 'id'
+            ],
+            '',
+            'id'
         );
 
         if (empty($records)) {
-            $records = $DB->get_records('course_format_options',
+            $records = $DB->get_records(
+                'course_format_options',
                 [
                     'format' => 'grid',
                     'name' => 'numsections',
-                ], '', 'id'
+                ],
+                '',
+                'id'
             );
 
             $records = array_keys($records);

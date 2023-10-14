@@ -38,7 +38,6 @@ use stdClass;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class content extends content_base {
-
     private $sectioncompletionpercentage = [];
     private $sectioncompletionmarkup = [];
     private $sectioncompletioncalculated = [];
@@ -115,8 +114,14 @@ class content extends content_base {
                 $fs = get_file_storage();
                 $coursecontext = \context_course::instance($course->id);
                 foreach ($coursesectionimages as $coursesectionimage) {
-                    $replacement = $toolbox->check_displayed_image($coursesectionimage, $course->id, $coursecontext->id,
-                        $coursesectionimage->sectionid, $format, $fs);
+                    $replacement = $toolbox->check_displayed_image(
+                        $coursesectionimage,
+                        $course->id,
+                        $coursecontext->id,
+                        $coursesectionimage->sectionid,
+                        $format,
+                        $fs
+                    );
                     if (!empty($replacement)) {
                         $coursesectionimages[$coursesectionimage->id] = $replacement;
                     }
@@ -162,10 +167,14 @@ class content extends content_base {
                 // Do we have an image?
                 if ((array_key_exists($section->id, $sectionimages)) && ($sectionimages[$section->id]->displayedimagestate >= 1)) {
                     $sectionimages[$section->id]->imageuri = $toolbox->get_displayed_image_uri(
-                        $sectionimages[$section->id], $coursecontext->id, $section->id, $displayediswebp);
+                        $sectionimages[$section->id],
+                        $coursecontext->id,
+                        $section->id,
+                        $displayediswebp
+                    );
                 } else {
                     // No.
-                    $sectionimages[$section->id] = new stdClass;
+                    $sectionimages[$section->id] = new stdClass();
                     $sectionimages[$section->id]->generatedimageuri = $output->get_generated_image_for_id($section->id);
                 }
                 // Number.
@@ -206,7 +215,7 @@ class content extends content_base {
                     // Section break.
                     if ($sectionformatoptions['sectionbreak'] == 2) { // Yes.
                         $sectionimages[$section->id]->sectionbreak = true;
-                        if (!empty ($sectionformatoptions['sectionbreakheading'])) {
+                        if (!empty($sectionformatoptions['sectionbreakheading'])) {
                             // Note:  As a PARAM_TEXT, then does need to be passed through 'format_string' for multi-lang or not?
                             $sectionimages[$section->id]->sectionbreakheading = format_text(
                                 $sectionformatoptions['sectionbreakheading'],
@@ -287,10 +296,16 @@ class content extends content_base {
         foreach ($sectioninfos as $thissection) {
             // The course/view.php check the section existence but the output can be called from other parts so we need to check it.
             if (!$thissection) {
-                throw new \moodle_exception('unknowncoursesection', 'error', '',
-                    get_string('unknowncoursesection', 'error',
-                        course_get_url($course).' - '.format_string($course->fullname))
-                    );
+                throw new \moodle_exception(
+                    'unknowncoursesection',
+                    'error',
+                    '',
+                    get_string(
+                        'unknowncoursesection',
+                        'error',
+                        course_get_url($course) . ' - ' . format_string($course->fullname)
+                    )
+                );
             }
 
             if ($thissection->section > $numsections) {
@@ -301,7 +316,7 @@ class content extends content_base {
                 continue;
             }
 
-            $section = new stdClass;
+            $section = new stdClass();
             $section->id = $thissection->id;
             $section->num = $thissection->section;
             $section->name = $output->section_title_without_link($thissection, $course);
@@ -349,8 +364,10 @@ class content extends content_base {
                         if ($completioninfo->is_enabled($thismod) != COMPLETION_TRACKING_NONE) {
                             $total++;
                             $completiondata = $completioninfo->get_data($thismod, true);
-                            if ($completiondata->completionstate == COMPLETION_COMPLETE ||
-                                $completiondata->completionstate == COMPLETION_COMPLETE_PASS) {
+                            if (
+                                $completiondata->completionstate == COMPLETION_COMPLETE ||
+                                $completiondata->completionstate == COMPLETION_COMPLETE_PASS
+                            ) {
                                 $complete++;
                             }
                         }
@@ -389,7 +406,8 @@ class content extends content_base {
                 } else {
                     $data->percentagequarter = 4;
                 }
-                $this->sectioncompletionmarkup[$section->section] = $output->render_from_template('format_grid/grid_completion', $data);
+                $this->sectioncompletionmarkup[$section->section] =
+                    $output->render_from_template('format_grid/grid_completion', $data);
             }
 
             $this->sectioncompletioncalculated[$section->section] = true;
