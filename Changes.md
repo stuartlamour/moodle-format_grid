@@ -1,7 +1,7 @@
 History
 =============
 
-Version 402.2.1 - TBR
+Version 402.2.1 - 14/10/2023
 ----------------------------
 1. Fix 'Webp image causes an error and makes course unaccessible' - #190.
 2. Fix "Hidden sections are shown as not available" doesn't seem to work. - #192.
