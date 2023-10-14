@@ -44,8 +44,8 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
      * @param array $attributes (optional) Either a typical HTML attribute string
      *              or an associative array
      */
-    public function __construct($elementname = null, $elementlabel = null, $attributes = null) {
-        parent::__construct($elementname, $elementlabel, $attributes, self::$options);
+    public function __construct($elementName=null, $elementLabel=null, $attributes=null) {
+        parent::__construct($elementName, $elementLabel, $attributes, self::$options);
     }
 
     /**
@@ -54,7 +54,7 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
      * @param int $value Draft item id with the uploaded files.
      * @return string|null Validation error message or null.
      */
-    public function validatesubmitvalue($value) {
+    public function validateSubmitValue($value) {
         $failure = parent::validateSubmitValue($value);
         if (!$failure) {
             $course = $this->getAttribute('course');
@@ -204,7 +204,7 @@ class MoodleQuickForm_sectionfilemanager extends MoodleQuickForm_filemanager imp
      *
      * @return string
      */
-    public function tohtml() {
+    public function toHtml() {
         $this->init();
         return parent::toHtml();
     }
