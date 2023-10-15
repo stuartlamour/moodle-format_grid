@@ -49,7 +49,7 @@ if ($ADMIN->fulltree) {
     ));
 
     // Information.
-    $page->add(new admin_setting_information('format_grid/formatinformation', '', '', 402));
+    $page->add(new admin_setting_information('format_grid/formatinformation', '', '', 403));
 
     // Support.md.
     $page->add(new admin_setting_markdown('format_grid/formatsupport', '', '', 'Support.md'));

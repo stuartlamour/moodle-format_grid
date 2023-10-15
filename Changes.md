@@ -1,6 +1,10 @@
 History
 =============
 
+Version 403.1.0 - TBR
+-----------------------------
+1. First version for Moodle 4.3.
+
 Version 402.2.1b - 14/10/2023
 -----------------------------
 1. Fix 'Webp image causes an error and makes course unaccessible' - #190.
