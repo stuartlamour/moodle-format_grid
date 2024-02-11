@@ -1,6 +1,9 @@
 History
 =============
 
+Version 403.1.2 - TBR
+----------------------------
+
 Version 403.1.1 - 22/01/2024
 ----------------------------
 1. Fix 'Import a format_grid course into a format_topics course fails and produces "undefined method"' - #193,
