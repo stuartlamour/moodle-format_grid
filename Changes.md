@@ -1,6 +1,10 @@
 History
 =============
 
+Version 404.0.1 - TBR
+----------------------------
+1. Alpha version for Moodle 4.4.
+
 Version 403.1.2 - TBR
 ----------------------------
 1. Fix 'Orphaned Section still appear in Index Drawer'.
