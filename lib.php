@@ -222,7 +222,7 @@ class format_grid extends core_courseformat\base {
      * @return string the page title
      */
     public function page_title(): string {
-        return get_string('topicoutline');
+        return get_string('sectionoutline');
     }
 
     /**
