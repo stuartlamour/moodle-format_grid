@@ -334,7 +334,7 @@ class format_grid extends core_courseformat\base {
         } else {
             $sectionno = $section;
         }
-        if ((!empty($options['navigation']) || array_key_exists('sr', $options)) && $sectionno !== null) {
+        if (!empty($options['navigation']) && $sectionno !== null) {
             // Display section on separate page.
             $sectioninfo = $this->get_section($sectionno);
             return new moodle_url('/course/section.php', ['id' => $sectioninfo->id]);
