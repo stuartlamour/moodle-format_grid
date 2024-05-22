@@ -3,6 +3,7 @@ History
 
 Version 404.0.2 - TBR
 ----------------------------
+1. Fix updating of course when adding or removing sections.  Note: Known issue of the section not looking as it should.
 
 Version 404.0.1 - 22/04/2024
 ----------------------------
