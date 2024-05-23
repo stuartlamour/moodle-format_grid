@@ -84,7 +84,7 @@ class content extends content_base {
             'sectionreturn' => null,
         ];
 
-        $singlesection = $this->format->get_sectionnum();
+        $singlesectionid = $this->format->get_sectionid();
         $sections = $this->export_sections($output);
         $initialsection = '';
         $course = $format->get_course();
@@ -93,13 +93,13 @@ class content extends content_base {
         if (!empty($sections)) {
             // Is first entry section 0?
             if ($sections[0]->num === 0) {
-                // Most formats uses section 0 as a separate section so we remove from the list.
-                $initialsection = array_shift($sections);
-                if (!$singlesection) {
+                if (!$singlesectionid) {
+                    // Most formats uses section 0 as a separate section so we remove from the list.
+                    $initialsection = array_shift($sections);
                     $data->initialsection = $initialsection;
                 }
             }
-            if (($editing) || ($singlesection)) { // This triggers the display of the standard list of section(s).
+            if (($editing) || ($singlesectionid)) { // This triggers the display of the standard list of section(s).
                 $data->sections = $sections;
             }
             if (!empty($course->marker)) {
@@ -113,15 +113,16 @@ class content extends content_base {
         }
 
         // The single section format has extra navigation.
-        if ($singlesection) {
-            $sectionnavigation = new $this->sectionnavigationclass($format, $singlesection);
+        if ($singlesectionid) {
+            $singlesectionno = $this->format->get_sectionnum();
+            $sectionnavigation = new $this->sectionnavigationclass($format, $singlesectionno);
             $data->sectionnavigation = $sectionnavigation->export_for_template($output);
 
             $sectionselector = new $this->sectionselectorclass($format, $sectionnavigation);
             $data->sectionselector = $sectionselector->export_for_template($output);
             $data->hasnavigation = true;
             $data->singlesection = array_shift($data->sections);
-            $data->sectionreturn = $singlesection;
+            $data->sectionreturn = $singlesectionno;
             $data->maincoursepage = new \moodle_url('/course/view.php', ['id' => $course->id]);
         } else {
             $coursesettings = $format->get_settings();
