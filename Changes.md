@@ -6,6 +6,7 @@ Version 404.0.2 - TBR
 1. Fix updating of course when adding or removing sections.  Note: Known issue of the section not looking as it should.
 2. Section navigation visibility improvements.
 3. Fix display of section zero on a single section page.
+4. Fix 'Unable to update defaultimageresizemethod setting' - #211.
 
 Version 404.0.1 - 22/04/2024
 ----------------------------
