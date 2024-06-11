@@ -1,7 +1,7 @@
 History
 =============
 
-Version 404.0.2 - TBR
+Version 404.1.0 - 11/04/2024
 ----------------------------
 1. Fix updating of course when adding or removing sections.  Note: Known issue of the section not looking as it should.
 2. Section navigation visibility improvements.
@@ -13,7 +13,7 @@ Version 404.0.1 - 22/04/2024
 ----------------------------
 1. Release candidate version for Moodle 4.4.
 
-Version 403.1.2 - TBR
+Version 403.1.2 - 08/04/2024
 ----------------------------
 1. Fix 'Orphaned Section still appear in Index Drawer'.
 2. Fix 'Restrict access can cause no content in other sections to be shown.' - #202.

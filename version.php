@@ -41,7 +41,7 @@ $plugin->supported = [404, 404];
 $plugin->component = 'format_grid';
 
 // Software maturity level.
-$plugin->maturity = MATURITY_RC;
+$plugin->maturity = MATURITY_STABLE;
 
 // User-friendly version number.
-$plugin->release = '404.0.2';
+$plugin->release = '404.1.0';
