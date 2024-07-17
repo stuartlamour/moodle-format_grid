@@ -30,6 +30,7 @@
         "percentagevalue": 42
     }
 }}
-<div class="grid-completion grid-completion-colour-{{percentagecolour}} grid-completion-percentagequarter-{{percentagequarter}}">
-    <span class="grid-percentage grid-percentagevalue-{{percentagevalue}}" title="{{percentagevalue}}%">{{percentagevalue}}%</span>
+<small>Progress {{percentagevalue}}%</small>
+<div class="progress">
+    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{percentagevalue}}" style="width: {{percentagevalue}}%" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
