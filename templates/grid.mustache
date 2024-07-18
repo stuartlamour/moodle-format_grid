@@ -64,13 +64,26 @@
         "showcompletion": true
     }
 }}
+
 <!-- Note, i'm using popup setting here to switch between a card and tile display. -->
 <div class="row">
     {{#gridsections}}
 
+    {{! Section break is used to break cards up. }}
+    {{#sectionbreak}}
+    <div class="col-12 py-3">
+        <h2>{{sectionbreakheading}}</h2>
+    </div>
+    {{/sectionbreak}}
+
     {{^popup}}
-    <div id="section-{{number}}" class="col-md-6 col-lg-4 my-3 {{#currentsection}} currentgridsection{{/currentsection}}">
+    <div class="col-md-6 col-lg-4 my-3 {{#currentsection}} currentgridsection{{/currentsection}}" id="section-{{number}}">
         <div class="ucl-card d-flex flex-column h-100">
+            {{#currentsection}}
+                <div class=" position-absolute p-2">
+                    <span class="badge badge-primary rounded-pill border border-white">Highlighted</span>
+                </div>
+            {{/currentsection}}
             {{! Image. }}
             <div class="bg-cover mb-2 bg-light"
                 style='background-image: url("{{{imageuri}}}"); height: 140px;'>
@@ -87,11 +100,6 @@
                         <span class="badge badge-pill badge-warning border border-dark">{{#str}} hiddenfromstudents {{/str}}</span>
                     </div>
                 {{/visible}}
-
-
-                 {{$ core_courseformat/local/content/section/badges }}
-        {{> core_courseformat/local/content/section/badges }}
-    {{/ core_courseformat/local/content/section/badges }}
             </div>
 
             {{! Name. }}
@@ -109,34 +117,41 @@
 
 
     {{#popup}}
-    <div class="ucl-card row w-100 position-relative my-2">
-    <div class="col-3">
-        <div class="bg-cover bg-light" style='background-image: url("{{{imageuri}}}"); height: 140px;'>
-                {{#visible}}
-                <div class="text-right pt-3">
-                    <div class="ucl-card-arrow transition inline bg-yellow p-3">
-                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    <div class="col-12 mb-4">
+        <div class="ucl-card row w-100 position-relative">
+            <div class="col-3">
+                {{#currentsection}}
+                    <div class=" position-absolute p-2">
+                        <span class="badge badge-primary rounded-pill border border-white">Highlighted</span>
                     </div>
+                {{/currentsection}}
+                <div class="bg-cover bg-light" style='background-image: url("{{{imageuri}}}"); height: 140px;'>
+                        {{#visible}}
+                        <div class="text-right pt-3">
+                            <div class="ucl-card-arrow transition inline bg-yellow p-3">
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        {{/visible}}
+
+                        {{^visible}}
+                            <div class="text-right p-2">
+                                <span class="badge badge-pill badge-warning border border-dark">{{#str}} hiddenfromstudents {{/str}}</span>
+                            </div>
+                        {{/visible}}
                 </div>
-                {{/visible}}
+            </div>
+            <div class="col position-static">
+                {{! Name. }}
+                <div class="dashboard-card-details">
+                    <a href="{{sectionurl}}" class="stretched-link line-clamp-3 font-weight-bold">{{sectionname}}</a>
+                </div>
+                <div class="line-clamp-3"> {{{summary}}} </div>
 
-                {{^visible}}
-                    <div class="text-right p-2">
-                        <span class="badge badge-pill badge-warning border border-dark">{{#str}} hiddenfromstudents {{/str}}</span>
-                    </div>
-                {{/visible}}
+                {{! Progress. }}
+                {{#sectioncompletionmarkup}}{{{sectioncompletionmarkup}}}{{/sectioncompletionmarkup}}
+            </div>
         </div>
-    </div>
-    <div class="col position-static">
-        {{! Name. }}
-        <div class="dashboard-card-details">
-            <a href="{{sectionurl}}" class="stretched-link font-weight-bold">{{sectionname}}</a>
-        </div>
-        <div class="line-clamp-3"> {{{summary}}} </div>
-
-        {{! Progress. }}
-        {{#sectioncompletionmarkup}}{{{sectioncompletionmarkup}}}{{/sectioncompletionmarkup}}
-    </div>
     </div>
     {{/popup}}
     {{/gridsections}}
