@@ -71,21 +71,23 @@
     {{^popup}}
     <div id="section-{{number}}" class="col-md-6 col-lg-4 my-3 {{#currentsection}} currentgridsection{{/currentsection}}">
         <div class="ucl-card d-flex flex-column h-100">
-
             {{! Image. }}
             <div class="bg-cover mb-2 bg-light"
                 style='background-image: url("{{{imageuri}}}"); height: 140px;'>
+                {{#visible}}
                 <div class="text-right pt-3" style="margin-top: -3px;">
                     <div class="ucl-card-arrow transition inline bg-yellow p-3">
                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
                     </div>
                 </div>
-
-                <!--
-                {{^visible}}
-                    <span class="badge badge-pill badge-warning">{{#str}} hiddenfromstudents {{/str}}</span><br>
                 {{/visible}}
-                -->
+
+                {{^visible}}
+                    <div class="text-right p-2">
+                        <span class="badge badge-pill badge-warning border border-dark">{{#str}} hiddenfromstudents {{/str}}</span>
+                    </div>
+                {{/visible}}
+
 
                  {{$ core_courseformat/local/content/section/badges }}
         {{> core_courseformat/local/content/section/badges }}
@@ -107,27 +109,30 @@
 
 
     {{#popup}}
-    <div class="ucl-card row w-100 my-2">
+    <div class="ucl-card row w-100 position-relative my-2">
     <div class="col-3">
-        <div class="bg-cover mb-2 bg-light" style='background-image: url("{{{imageuri}}}"); height: 140px;'>
-                <div class="text-right pt-3" style="margin-top: -3px;">
+        <div class="bg-cover bg-light" style='background-image: url("{{{imageuri}}}"); height: 140px;'>
+                {{#visible}}
+                <div class="text-right pt-3">
                     <div class="ucl-card-arrow transition inline bg-yellow p-3">
                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
                     </div>
                 </div>
-                <!--
-                {{^visible}}
-                    <span class="badge badge-pill badge-warning">{{#str}} hiddenfromstudents {{/str}}</span><br>
                 {{/visible}}
-                -->
+
+                {{^visible}}
+                    <div class="text-right p-2">
+                        <span class="badge badge-pill badge-warning border border-dark">{{#str}} hiddenfromstudents {{/str}}</span>
+                    </div>
+                {{/visible}}
         </div>
     </div>
-    <div class="col">
+    <div class="col position-static">
         {{! Name. }}
         <div class="dashboard-card-details">
-            <a href="{{sectionurl}}" class="stretched-link line-clamp-3 font-weight-bold">{{sectionname}}</a>
+            <a href="{{sectionurl}}" class="stretched-link font-weight-bold">{{sectionname}}</a>
         </div>
-        <p>Section summary would be here</p>
+        <div class="line-clamp-3"> {{{summary}}} </div>
 
         {{! Progress. }}
         {{#sectioncompletionmarkup}}{{{sectioncompletionmarkup}}}{{/sectioncompletionmarkup}}

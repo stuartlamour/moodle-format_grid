@@ -241,6 +241,12 @@ class content extends content_base {
                         $sectionimages[$section->id]->notavailable = true;
                     }
 
+                    // Visible/Hidden from students.
+                    $sectionimages[$section->id]->visible = $section->visible;
+
+                    // Summary.
+                    $sectionimages[$section->id]->summary = $section->summary;
+
                     // Section break.
                     if ($sectionformatoptions['sectionbreak'] == 2) { // Yes.
                         $sectionimages[$section->id]->sectionbreak = true;
@@ -371,6 +377,8 @@ class content extends content_base {
                 }
             }
             $section->uservisible = $thissection->uservisible;
+            $section->visible = $thissection->visible;
+            $section->summary = html_to_text(format_string($thissection->summary, true));
             $sections[] = $section;
         }
 

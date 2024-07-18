@@ -36,15 +36,14 @@
         "summary": "Summary markup"
     }
 }}
-{{#left}}
-<div class="d-flex flex-row">
-{{/left}}
-{{#centre}}
-<div class="d-flex flex-column align-items-center">
-{{/centre}}
-{{#right}}
-<div class="d-flex flex-row-reverse">
-{{/right}}
-    <div class="p-1"><img class="img-responsive" src="{{imageuri}}" alt="{{alttext}}"></div>
-    <div class="p-1{{^centre}} w-100{{/centre}}">{{{summary}}}</div>
+
+<div class="row">
+    <div class="col-3">
+        <div class="bg-cover bg-light"
+            style='background-image: url("{{{imageuri}}}"); height: 140px;'>
+        </div>
+    </div>
+    <div class="col">
+        {{{summary}}}
+    </div>
 </div>
