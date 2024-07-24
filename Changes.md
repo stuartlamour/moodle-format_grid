@@ -3,6 +3,7 @@ History
 
 Version 404.1.1 - TBR
 ----------------------------
+1. Use section anchors in links when editing.
 
 Version 404.1.0 - 11/04/2024
 ----------------------------

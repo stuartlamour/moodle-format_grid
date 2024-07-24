@@ -59,7 +59,13 @@ class format_grid extends core_courseformat\base {
             $currentsettings = $this->get_settings();
             if (!empty($currentsettings['popup'])) {
                 if ($currentsettings['popup'] == 2) {
-                    $this->coursedisplay = COURSE_DISPLAY_SINGLEPAGE;
+                    global $PAGE;
+                    $context = context_course::instance($courseid);
+                    if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
+                        $this->coursedisplay = COURSE_DISPLAY_MULTIPAGE;
+                    } else {
+                        $this->coursedisplay = COURSE_DISPLAY_SINGLEPAGE;
+                    }
                 }
             }
         }
@@ -324,8 +330,8 @@ class format_grid extends core_courseformat\base {
      * @return null|moodle_url
      */
     public function get_view_url($section, $options = []) {
+        global $PAGE;
         $course = $this->get_course();
-        $url = new moodle_url('/course/view.php', ['id' => $course->id]);
 
         if (array_key_exists('sr', $options)) {
             $sectionno = $options['sr'];
@@ -334,11 +340,17 @@ class format_grid extends core_courseformat\base {
         } else {
             $sectionno = $section;
         }
-        if (!empty($options['navigation']) && $sectionno !== null) {
-            // Display section on separate page.
-            $sectioninfo = $this->get_section($sectionno);
-            return new moodle_url('/course/section.php', ['id' => $sectioninfo->id]);
+
+        $context = context_course::instance($course->id);
+        if (!($PAGE->user_is_editing() && has_capability('moodle/course:update', $context))) {
+            if (!empty($options['navigation']) && $sectionno !== null) {
+                // Display section on separate page when not editing.
+                $sectioninfo = $this->get_section($sectionno);
+                return new moodle_url('/course/section.php', ['id' => $sectioninfo->id]);
+            }
         }
+
+        $url = new moodle_url('/course/view.php', ['id' => $course->id]);
         if ($this->uses_sections() && $sectionno !== null) {
             $url->set_anchor('section-'.$sectionno);
         }
