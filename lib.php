@@ -56,14 +56,14 @@ class format_grid extends core_courseformat\base {
         parent::__construct($format, $courseid);
 
         if ($courseid != 1) {
-            $currentsettings = $this->get_settings();
-            if (!empty($currentsettings['popup'])) {
-                if ($currentsettings['popup'] == 2) {
-                    global $PAGE;
-                    $context = context_course::instance($courseid);
-                    if ($PAGE->user_is_editing() && has_capability('moodle/course:update', $context)) {
-                        $this->coursedisplay = COURSE_DISPLAY_MULTIPAGE;
-                    } else {
+            global $USER;
+            $context = context_course::instance($courseid);
+            if (!empty($USER->editing) && has_capability('moodle/course:update', $context)) {
+                $this->coursedisplay = COURSE_DISPLAY_SINGLEPAGE;
+            } else {
+                $currentsettings = $this->get_settings();
+                if (!empty($currentsettings['popup'])) {
+                    if ($currentsettings['popup'] == 2) {
                         $this->coursedisplay = COURSE_DISPLAY_SINGLEPAGE;
                     }
                 }
