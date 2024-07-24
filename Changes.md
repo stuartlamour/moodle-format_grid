@@ -1,6 +1,9 @@
 History
 =============
 
+Version 404.1.1 - TBR
+----------------------------
+
 Version 404.1.0 - 11/04/2024
 ----------------------------
 1. Fix updating of course when adding or removing sections.  Note: Known issue of the section not looking as it should.
