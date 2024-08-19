@@ -5,6 +5,7 @@ Version 404.1.1 - TBR
 ----------------------------
 1. Use section anchors in links when editing.
 2. Add badges to grid - #215.
+3. Adjust section titles in grid and move 'title' attribute to cover whole grid box.
 
 Version 404.1.0 - 11/04/2024
 ----------------------------
